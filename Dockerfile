@@ -1,6 +1,10 @@
 # Build stage
 FROM node:20-alpine AS builder
 
+# Build arguments for environment variables
+ARG VITE_API_URL=https://api.lottowins88.com
+ARG VITE_API_BASE_PATH=/api/v1
+
 WORKDIR /app
 
 # Copy package files
@@ -11,6 +15,10 @@ RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
+
+# Set environment variables for build
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_API_BASE_PATH=$VITE_API_BASE_PATH
 
 # Build for production
 RUN npm run build
