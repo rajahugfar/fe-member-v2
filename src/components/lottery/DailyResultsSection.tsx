@@ -21,28 +21,37 @@ const DailyResultsSection: React.FC<DailyResultsSectionProps> = ({ date }) => {
   const fetchDailyResults = async () => {
     try {
       setLoading(true)
-      // Call public API endpoint
+      console.log('Fetching daily results for date:', targetDate)
+      // Call admin API endpoint (public accessible)
       const response = await adminLotteryDailyAPI.getDailyList({ date: targetDate })
+
+      console.log('Daily results response:', response)
 
       if (response.status === 'success' && response.data) {
         const lotteries = response.data.lotteries || []
+        console.log('Total lotteries:', lotteries.length)
 
         // แยกหวย GLO ล่าสุดที่ออกผลแล้ว (status=2)
-        const gloLotteries = lotteries.filter(l => l.huayCode === 'GLO' && l.status === 2)
+        const gloLotteries = lotteries.filter((l: DailyLotteryItem) => l.huayCode === 'GLO' && l.status === 2)
         if (gloLotteries.length > 0) {
           // เอาล่าสุด
           gloLotteries.sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
           setGloResult(gloLotteries[0])
+          console.log('Found GLO result:', gloLotteries[0])
         } else {
           setGloResult(null)
+          console.log('No GLO result found')
         }
 
         // หวยอื่นๆ ทั้งหมด
         setResults(lotteries)
+      } else {
+        console.error('Invalid response format:', response)
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to fetch daily results:', error)
-      toast.error('ไม่สามารถโหลดผลหวยได้')
+      console.error('Error details:', error.response?.data || error.message)
+      toast.error('ไม่สามารถโหลดผลหวยได้: ' + (error.response?.data?.message || error.message))
     } finally {
       setLoading(false)
     }
