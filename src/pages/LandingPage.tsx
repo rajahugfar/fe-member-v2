@@ -72,13 +72,13 @@ const LandingPage = () => {
   // Handle login redirect
   const handleLoginRedirect = () => {
     setShowLoginPopup(false)
-    navigate('/login', { state: { from: pendingLink } })
+    navigate('/member/login', { state: { from: pendingLink } })
   }
 
   // Handle register redirect
   const handleRegisterRedirect = () => {
     setShowLoginPopup(false)
-    navigate('/register', { state: { from: pendingLink } })
+    navigate('/member/register', { state: { from: pendingLink } })
   }
 
   const gameCategories = [
@@ -536,11 +536,13 @@ const LandingPage = () => {
 
             {/* Popup Modal */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[90%] max-w-md"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              onClick={(e) => e.stopPropagation()}
             >
+              <div className="w-full max-w-md">
               <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border-2 border-yellow-500/30 shadow-[0_0_50px_rgba(202,138,4,0.3)] overflow-hidden">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 p-6 relative">
@@ -588,6 +590,7 @@ const LandingPage = () => {
                     </button>
                   </div>
                 </div>
+              </div>
               </div>
             </motion.div>
           </>
