@@ -3,6 +3,7 @@ import { memberLotteryAPI, MyBet } from '@api/memberLotteryAPI'
 import toast from 'react-hot-toast'
 import { FiAward, FiCalendar, FiClock, FiRefreshCw } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
+import DailyResultsSection from '../../components/lottery/DailyResultsSection'
 
 interface ResultPeriod {
   id: string
