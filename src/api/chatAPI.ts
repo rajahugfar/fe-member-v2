@@ -1,9 +1,12 @@
 import axios from 'axios'
 import { adminAPIClient } from './adminAPI'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+
 // Member Chat API
 const memberChatAPI = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/member/chat',
+  baseURL: `${API_URL}/api/v1/member/chat`,
+  withCredentials: true,
   headers: { 'Content-Type': 'application/json' }
 })
 
