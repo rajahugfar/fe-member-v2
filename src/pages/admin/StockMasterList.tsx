@@ -57,7 +57,8 @@ const StockMasterList: React.FC = () => {
   const fetchCurrentStock = async (huayId: number) => {
     setLoading(true)
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/admin/lottery/stock/current/${huayId}`, {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+      const response = await fetch(`${API_URL}/api/v1/admin/lottery/stock/current/${huayId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
         }

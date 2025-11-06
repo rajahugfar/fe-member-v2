@@ -150,6 +150,15 @@ const LotteryResults: React.FC = () => {
           </button>
         </div>
 
+        {/* ส่วนแสดงผลหวยวันนี้ */}
+        <DailyResultsSection date={filterDate} />
+
+        {/* Divider */}
+        <div className="my-8 border-t border-gray-300"></div>
+
+        {/* ส่วนเดิม - ผลหวยที่แทงไว้ */}
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">โพยที่ฉันแทง</h2>
+
         {/* Filters */}
         <div className="bg-white rounded-lg shadow p-4 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

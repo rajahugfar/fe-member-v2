@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { memberLotteryAPI, OpenPeriod, LotteryRate } from '@api/memberLotteryAPI'
 import { toast } from 'react-hot-toast'
-import { FiClock, FiX, FiShoppingCart } from 'react-icons/fi'
+import { FiClock, FiX, FiShoppingCart, FiArrowLeft } from 'react-icons/fi'
 import { useLotteryState } from '@/hooks/useLotteryState'
 import { useKeyboardInput } from '@/hooks/useKeyboardInput'
 import { reloadCredit } from '@/utils/creditHelpers'
@@ -311,9 +311,10 @@ const LotteryBetting: React.FC = () => {
         <div className="mb-4 backdrop-blur-md bg-white/10 rounded-xl p-3 border-2 border-white/20 shadow-2xl">
           <button
             onClick={() => navigate('/member/lottery')}
-            className="text-white hover:text-yellow-400 mb-2 transition-colors text-sm font-semibold"
+            className="flex items-center gap-2 text-white hover:text-yellow-400 mb-3 transition-colors text-sm font-semibold bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg"
           >
-            กลับไปเลือกหวยเพิ่ม
+            <FiArrowLeft className="text-base" />
+            <span>กลับไปเลือกหวย</span>
           </button>
 
           <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3">

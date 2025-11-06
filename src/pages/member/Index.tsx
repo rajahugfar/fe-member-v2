@@ -35,7 +35,8 @@ const MemberIndex = () => {
   const loadProfile = async () => {
     try {
       const response = await profileAPI.getProfile()
-      setProfile(response.data)
+      // API returns { data: { data: {...}, success, message } }
+      setProfile(response.data.data)
     } catch (error) {
       console.error('Failed to load profile:', error)
       // Fallback to member from store if API fails
@@ -111,8 +112,6 @@ const MemberIndex = () => {
 
   // Sidebar tabs configuration
   const sidebarTabs = [
-    { id: 'all', name: 'เกมมาแรง', image: '/images/btn-cat-slot.webp' },
-    { id: 'new', name: 'เกมใหม่รอก', image: '/images/btn-cat-slot.webp' },
     { id: 'slot', name: 'สล็อต', image: '/images/btn-cat-slot.webp' },
     { id: 'live', name: 'คาสิโน', image: '/images/btn-cat-poker.webp' },
     { id: 'card', name: 'เกมไพ่', image: '/images/btn-cat-card.webp' },
@@ -259,7 +258,7 @@ const MemberIndex = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {searchFilteredProviders.map((provider, index) => {
                 // Use provider image from database
-                const providerImage = `http://localhost:3000/${provider.image_path}`
+                const providerImage = `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/${provider.image_path}`
 
                 return (
                   <motion.div

@@ -318,7 +318,7 @@ const MemberChat: React.FC = () => {
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
-        {messages.map((msg) => {
+        {messages?.map((msg) => {
           const senderType = msg.sender_type || msg.senderType
           const createdAt = msg.created_at || msg.createdAt
           const imageUrl = msg.image_url || msg.imageUrl
