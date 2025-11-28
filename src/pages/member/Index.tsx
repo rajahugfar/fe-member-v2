@@ -19,12 +19,12 @@ const MemberIndex = () => {
   const [profile, setProfile] = useState<any>(null)
   const [, setLoading] = useState(true)
   const [providers, setProviders] = useState<GameProvider[]>([])
-  const [activeTab, setActiveTab] = useState<string>('all')
+  const [activeTab, setActiveTab] = useState<string>('Slot') // Default to Slot category
   const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     loadProfile()
-    loadProviders()
+    loadProviders(activeTab) // Load initial category
   }, [])
 
   // Reload providers when tab changes
@@ -121,12 +121,12 @@ const MemberIndex = () => {
     },
   ]
 
-  // Sidebar tabs configuration
+  // Sidebar tabs configuration - match backend categories
   const sidebarTabs = [
-    { id: 'slot', name: 'สล็อต', image: '/images/btn-cat-slot.webp' },
-    { id: 'live', name: 'คาสิโน', image: '/images/btn-cat-poker.webp' },
-    { id: 'card', name: 'เกมไพ่', image: '/images/btn-cat-card.webp' },
-    { id: 'sport', name: 'กีฬา', image: '/images/btn-cat-sport.webp' },
+    { id: 'Slot', name: 'สล็อต', image: '/images/btn-cat-slot.webp' },
+    { id: 'Live Casino', name: 'คาสิโน', image: '/images/btn-cat-poker.webp' },
+    { id: 'Poker', name: 'โป๊กเกอร์', image: '/images/btn-cat-card.webp' },
+    { id: 'Sport', name: 'กีฬา', image: '/images/btn-cat-sport.webp' },
   ]
 
   // Filter providers based on search
@@ -268,8 +268,9 @@ const MemberIndex = () => {
             {/* Provider Grid - 4 columns desktop, 3 tablet, 2 mobile */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {searchFilteredProviders.map((provider, index) => {
-                // Use provider image from database
-                const providerImage = `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/${provider.image_path}`
+                // Use provider image from database - remove leading slash if present
+                const imagePath = provider.image_path.startsWith('/') ? provider.image_path.slice(1) : provider.image_path
+                const providerImage = `${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/${imagePath}`
 
                 return (
                   <motion.div
