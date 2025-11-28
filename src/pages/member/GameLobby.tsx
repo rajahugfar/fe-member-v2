@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams, Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FiSearch, FiPlay, FiEye, FiArrowRight, FiArrowLeft, FiChevronRight } from 'react-icons/fi'
-import { FaHome } from 'react-icons/fa'
+import { FaHome, FaUser, FaSignOutAlt, FaCoins, FaMoneyBillWave } from 'react-icons/fa'
 import { publicGameAPI } from '../../api/publicGameAPI'
 import { gameAPI } from '../../api/memberAPI'
+import { useMemberStore } from '@store/memberStore'
 import { toast } from 'react-hot-toast'
+import MemberChat from '@/components/chat/MemberChat'
 
 const ACTION_BUTTONS = [
-  { id: 'account', name: 'บัญชี', image: '/images/btn-play-profile.webp', link: '/member/dashboard' },
-  { id: 'deposit', name: 'ฝากถอน', image: '/images/btn-play-topup.webp', link: '/member/deposit' },
-  { id: 'register', name: 'สมัคร', image: '/images/btn-play-register.webp', link: '/member/promotions' },
-  { id: 'contact', name: 'ติดต่อ', image: '/images/btn-play-contact.webp', link: 'tel:0277777777' },
+  { id: 'account', nameKey: 'game:actionButtons.account', image: '/images/btn-play-profile.webp', link: '/member/dashboard' },
+  { id: 'deposit', nameKey: 'game:actionButtons.deposit', image: '/images/btn-play-topup.webp', link: '/member/deposit' },
+  { id: 'register', nameKey: 'game:actionButtons.register', image: '/images/btn-play-register.webp', link: '/member/promotions' },
+  { id: 'contact', nameKey: 'game:actionButtons.contact', image: '/images/btn-play-contact.webp', link: 'tel:0277777777' },
 ]
 
 const GameLobby: React.FC = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const providerParam = searchParams.get('provider')
+  const { logout, member } = useMemberStore()
 
   const [games, setGames] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -25,6 +30,12 @@ const GameLobby: React.FC = () => {
   const [filters, setFilters] = useState({ search: '', type: '', sort: 'popular' })
   const [showTransferModal, setShowTransferModal] = useState(false)
   const [transferForm, setTransferForm] = useState({ amount: '', direction: 'IN' as 'IN' | 'OUT' })
+
+  const handleLogout = () => {
+    logout()
+    navigate('/member/login')
+    toast.success(t('game:messages.logoutSuccess'))
+  }
 
   useEffect(() => {
     loadGames()
@@ -41,7 +52,7 @@ const GameLobby: React.FC = () => {
       setGames(response.games || [])
     } catch (error) {
       console.error('Load games error:', error)
-      toast.error('โหลดเกมไม่สำเร็จ')
+      toast.error(t('game:messages.loadGameError'))
     } finally {
       setLoading(false)
     }
@@ -73,12 +84,12 @@ const GameLobby: React.FC = () => {
         window.location.href = gameUrl
       } else {
         setLoadingGame(false)
-        toast.error(response.data.message || 'เปิดเกมไม่สำเร็จ')
+        toast.error(response.data.message || t('game:messages.playGameError'))
       }
     } catch (error: any) {
       setLoadingGame(false)
       console.error('Play game error:', error)
-      toast.error(error.response?.data?.message || 'เปิดเกมไม่สำเร็จ')
+      toast.error(error.response?.data?.message || t('game:messages.playGameError'))
     }
   }
 
@@ -86,17 +97,17 @@ const GameLobby: React.FC = () => {
     const amount = Number(transferForm.amount)
 
     if (!amount || amount <= 0) {
-      toast.error('กรุณากรอกจำนวนเงิน')
+      toast.error(t('game:messages.enterAmount'))
       return
     }
 
     if (transferForm.direction === 'IN' && amount > balance.main) {
-      toast.error('ยอดเงินในกระเป๋าหลักไม่เพียงพอ')
+      toast.error(t('game:messages.insufficientMainWallet'))
       return
     }
 
     if (transferForm.direction === 'OUT' && amount > balance.game) {
-      toast.error('ยอดเงินในกระเป๋าเกมไม่เพียงพอ')
+      toast.error(t('game:messages.insufficientGameWallet'))
       return
     }
 
@@ -106,13 +117,13 @@ const GameLobby: React.FC = () => {
         direction: transferForm.direction
       })
 
-      toast.success('โอนเงินสำเร็จ')
+      toast.success(t('game:messages.transferSuccess'))
       setShowTransferModal(false)
       setTransferForm({ amount: '', direction: 'IN' })
       loadBalance()
     } catch (error: any) {
       console.error('Transfer error:', error)
-      toast.error(error.response?.data?.message || 'โอนเงินไม่สำเร็จ')
+      toast.error(error.response?.data?.message || t('game:messages.transferError'))
     }
   }
 
@@ -153,9 +164,81 @@ const GameLobby: React.FC = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+      </div>
+
+      {/* Header */}
+      <header className="relative z-20 bg-gradient-to-r from-gray-900 to-gray-800 border-b border-gray-700 shadow-2xl">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link to="/member" className="flex items-center">
+              <img 
+                src="/images/bicycle678-logo.svg" 
+                alt="Bicycle678" 
+                className="h-12 w-auto" 
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/bicycle678-logo.svg';
+                }}
+              />
+            </Link>
+
+            {/* User Info & Actions */}
+            {member && (
+              <div className="flex items-center space-x-2">
+                <div className="hidden md:flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/10">
+                  <div className="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center">
+                    <FaUser className="text-white text-sm" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-white font-bold text-sm">{member.phone}</div>
+                    <div className="text-yellow-400 text-xs font-semibold flex items-center">
+                      <FaCoins className="mr-1" />
+                      {formatCurrency(member.credit || 0)}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Deposit Button */}
+                <Link
+                  to="/member/deposit"
+                  className="flex items-center space-x-2 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white px-4 py-2 rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl text-sm"
+                >
+                  <FaMoneyBillWave />
+                  <span className="hidden md:inline">{t("navigation:menu.deposit")}</span>
+                </Link>
+                
+                {/* Withdraw Button */}
+                <Link
+                  to="/member/withdraw"
+                  className="flex items-center space-x-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-2 rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl text-sm"
+                >
+                  <FaCoins />
+                  <span className="hidden md:inline">{t("navigation:menu.withdraw")}</span>
+                </Link>
+                
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center space-x-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl text-sm"
+                >
+                  <FaSignOutAlt />
+                  <span className="hidden md:inline">{t("navigation:menu.logout")}</span>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </header>
+
       {/* Main Content */}
-      <div className="w-full">
+      <div className="relative z-10">
+        <div className="container mx-auto px-4 py-6">
         {/* Breadcrumb */}
         <div className="mb-4">
           <nav className="flex items-center space-x-2 text-sm">
@@ -165,10 +248,10 @@ const GameLobby: React.FC = () => {
               className="flex items-center text-gray-400 hover:text-yellow-400 transition-colors"
             >
               <FaHome className="mr-1" />
-              หน้าแรก
+              {t('game:breadcrumb.home')}
             </button>
             <FiChevronRight className="text-gray-600" />
-            <span className="text-white font-bold">เกมส์</span>
+            <span className="text-white font-bold">{t("navigation:menu.games")}</span>
             {providerParam && (
               <>
                 <FiChevronRight className="text-gray-600" />
@@ -192,7 +275,7 @@ const GameLobby: React.FC = () => {
                 >
                   <img
                     src={button.image}
-                    alt={button.name}
+                    alt={t(button.nameKey)}
                     className="w-full h-auto object-cover"
                   />
                 </a>
@@ -204,7 +287,7 @@ const GameLobby: React.FC = () => {
                 >
                   <img
                     src={button.image}
-                    alt={button.name}
+                    alt={t(button.nameKey)}
                     className="w-full h-auto object-cover"
                   />
                 </Link>
@@ -218,14 +301,14 @@ const GameLobby: React.FC = () => {
           <div className="mb-4 flex items-center gap-2">
             <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border-2 border-yellow-400/50 rounded-lg">
               <span className="text-yellow-400 font-bold text-lg">
-                กำลังดูเกมจากค่าย: <span className="text-white ml-2">{providerParam}</span>
+                {t('game:providerFilter.viewingFrom')} <span className="text-white ml-2">{providerParam}</span>
               </span>
             </div>
             <Link
               to="/member/games"
               className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/30 rounded-lg text-white font-bold transition-all"
             >
-              ดูทั้งหมด
+              {t('game:providerFilter.viewAll')}
             </Link>
           </div>
         )}
@@ -240,7 +323,7 @@ const GameLobby: React.FC = () => {
                 type="text"
                 value={filters.search}
                 onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-                placeholder="ค้นหา..."
+                placeholder={t('game:searchPlaceholder')}
                 className="w-full pl-11 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
             </div>
@@ -253,7 +336,7 @@ const GameLobby: React.FC = () => {
             </div>
           ) : filteredGames.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-400 text-lg">ไม่พบเกม</p>
+              <p className="text-gray-400 text-lg">{t('game:noGamesFound')}</p>
             </div>
           ) : (
             <div className={`grid ${getGridColumns()} gap-4`}>
@@ -267,7 +350,7 @@ const GameLobby: React.FC = () => {
                 >
                   <div className="relative">
                     {/* Game Card */}
-                    <div className="relative aspect-square rounded-lg overflow-hidden">
+                    <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-800">
                       <img
                         src={game.imageUrl || 'https://via.placeholder.com/300x300?text=Game'}
                         alt={game.name}
@@ -277,12 +360,12 @@ const GameLobby: React.FC = () => {
                       {/* Badges */}
                       {game.isFeatured && (
                         <span className="absolute top-2 left-2 px-2 py-1 bg-yellow-500 text-gray-900 text-xs font-bold rounded-lg z-20">
-                          ⭐ แนะนำ
+                          ⭐ {t('game:badges.featured')}
                         </span>
                       )}
                       {game.isNew && (
                         <span className="absolute top-2 right-2 px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-lg z-20">
-                          🆕 ใหม่
+                          🆕 {t('game:badges.new')}
                         </span>
                       )}
 
@@ -294,7 +377,7 @@ const GameLobby: React.FC = () => {
                           className="px-4 py-2 bg-gradient-to-r from-yellow-600 to-orange-600 text-white rounded-lg font-bold hover:from-yellow-500 hover:to-orange-500 transition-all flex items-center gap-2 shadow-lg border-2 border-yellow-400"
                         >
                           <FiPlay size={16} />
-                          <span>เล่น</span>
+                          <span>{t('game:buttons.play')}</span>
                         </button>
                         {game.hasDemo && (
                           <button
@@ -302,7 +385,7 @@ const GameLobby: React.FC = () => {
                             className="px-4 py-2 bg-white/20 text-white rounded-lg font-bold hover:bg-white/30 transition-all flex items-center gap-2 border-2 border-white/40"
                           >
                             <FiEye size={16} />
-                            <span>ทดลอง</span>
+                            <span>{t('game:buttons.demo')}</span>
                           </button>
                         )}
                       </div>
@@ -319,7 +402,18 @@ const GameLobby: React.FC = () => {
             </div>
           )}
         </div>
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer className="relative z-10 bg-[#0a0e13] py-8 mt-12">
+        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">
+          <p>© 2024 SA Casino Gaming. All rights reserved.</p>
+        </div>
+      </footer>
+
+      {/* Member Chat */}
+      <MemberChat />
 
       {/* Game Loading Modal */}
       {loadingGame && (
@@ -351,7 +445,7 @@ const GameLobby: React.FC = () => {
 
               {/* Title */}
               <h3 className="text-3xl font-black text-center mb-3 bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(255,215,0,0.8)] animate-shimmer">
-                กำลังเปิดเกม
+                {t('game:loadingModal.title')}
               </h3>
 
               {/* Game Name */}
@@ -367,7 +461,7 @@ const GameLobby: React.FC = () => {
 
               {/* Loading Text */}
               <p className="text-center text-gray-300 text-sm animate-pulse">
-                กรุณารอสักครู่... กำลังโอนเครดิตและเตรียมเกม
+                {t('game:loadingModal.message')}
               </p>
 
               {/* Floating Elements */}
@@ -382,7 +476,7 @@ const GameLobby: React.FC = () => {
       {showTransferModal && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="bg-[#1a2332] rounded-2xl p-6 max-w-md w-full border-4 border-yellow-600/50 shadow-2xl">
-            <h3 className="text-2xl font-black text-yellow-400 mb-6 drop-shadow-lg">โอนเงิน</h3>
+            <h3 className="text-2xl font-black text-yellow-400 mb-6 drop-shadow-lg">{t('game:transferModal.title')}</h3>
 
             {/* Direction Tabs */}
             <div className="grid grid-cols-2 gap-3 mb-6">
@@ -396,7 +490,7 @@ const GameLobby: React.FC = () => {
                 }`}
               >
                 <FiArrowRight />
-                <span>โอนเข้าเกม</span>
+                <span>{t('game:transferModal.toGame')}</span>
               </button>
               <button
                 type="button"
@@ -408,31 +502,31 @@ const GameLobby: React.FC = () => {
                 }`}
               >
                 <FiArrowLeft />
-                <span>โอนออกเกม</span>
+                <span>{t('game:transferModal.fromGame')}</span>
               </button>
             </div>
 
             {/* Balance Display */}
             <div className="grid grid-cols-2 gap-3 mb-6">
               <div className="p-4 bg-white/5 rounded-lg border-2 border-white/10">
-                <p className="text-yellow-400 text-xs mb-1 font-bold">กระเป๋าหลัก</p>
+                <p className="text-yellow-400 text-xs mb-1 font-bold">{t('game:transferModal.mainWallet')}</p>
                 <p className="text-white font-black text-lg">฿{formatCurrency(balance.main)}</p>
               </div>
               <div className="p-4 bg-white/5 rounded-lg border-2 border-white/10">
-                <p className="text-yellow-400 text-xs mb-1 font-bold">กระเป๋าเกม</p>
+                <p className="text-yellow-400 text-xs mb-1 font-bold">{t('game:transferModal.gameWallet')}</p>
                 <p className="text-white font-black text-lg">฿{formatCurrency(balance.game)}</p>
               </div>
             </div>
 
             {/* Amount Input */}
             <div className="mb-4">
-              <label className="block text-yellow-400 text-sm mb-2 font-bold">จำนวนเงิน</label>
+              <label className="block text-yellow-400 text-sm mb-2 font-bold">{t('game:transferModal.amount')}</label>
               <input
                 type="number"
                 value={transferForm.amount}
                 onChange={(e) => setTransferForm({ ...transferForm, amount: e.target.value })}
                 className="w-full px-4 py-3 bg-white/10 border-2 border-white/20 rounded-xl text-white text-2xl font-bold placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
-                placeholder="0.00"
+                placeholder={t('game:transferModal.amountPlaceholder')}
               />
             </div>
 
@@ -457,7 +551,7 @@ const GameLobby: React.FC = () => {
                 onClick={handleTransfer}
                 className="flex-1 px-6 py-3 bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-500 hover:to-orange-500 text-white rounded-xl transition-all font-black shadow-lg border-2 border-yellow-400"
               >
-                ยืนยัน
+                {t('game:transferModal.confirm')}
               </button>
               <button
                 type="button"
@@ -467,12 +561,79 @@ const GameLobby: React.FC = () => {
                 }}
                 className="flex-1 px-6 py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-all font-bold border-2 border-white/20"
               >
-                ยกเลิก
+                {t('game:transferModal.cancel')}
               </button>
             </div>
           </div>
         </div>
       )}
+
+      {/* Custom CSS for animations */}
+      <style>{`
+        @keyframes blob {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        .animate-shimmer {
+          animation: shimmer 3s linear infinite;
+        }
+        @keyframes shimmer-fast {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        .animate-shimmer-fast {
+          animation: shimmer-fast 1.5s linear infinite;
+        }
+        @keyframes loading-bar {
+          0% { background-position: 0% center; }
+          100% { background-position: 200% center; }
+        }
+        .animate-loading-bar {
+          animation: loading-bar 1.5s linear infinite;
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 8s linear infinite;
+        }
+        @keyframes spin-reverse {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
+        }
+        .animate-spin-reverse {
+          animation: spin-reverse 6s linear infinite;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-in;
+        }
+      `}</style>
     </div>
   )
 }
