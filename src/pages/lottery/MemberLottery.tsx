@@ -435,6 +435,7 @@ const PremiumLotteryCard: React.FC<{ period: OpenPeriod; index: number }> = ({ p
 
 // Standard Lottery Card (for stock market and other lotteries)
 const StandardLotteryCard: React.FC<{ period: OpenPeriod; index: number }> = ({ period, index }) => {
+  const { t } = useTranslation()
   const [timeLeft, setTimeLeft] = useState('')
   const theme = getLotteryTheme(period.huayCode)
   const icon = getLotteryIcon(period.huayCode)

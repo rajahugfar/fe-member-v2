@@ -6,7 +6,7 @@ import { LotteryRate } from '@api/memberLotteryAPI'
 import { useTranslation } from 'react-i18next'
 
 interface BetTypeSelectorProps {
-  selectedBetTypes: string[]
+  selectedBetType: string
   onToggle: (betType: string) => void
   rates: LotteryRate[]
   disabled?: boolean
@@ -24,7 +24,7 @@ const BET_TYPE_GROUPS = [
 ]
 
 const BetTypeSelector: React.FC<BetTypeSelectorProps> = ({
-  selectedBetTypes,
+  selectedBetType,
   onToggle,
   rates,
   disabled = false
@@ -63,16 +63,16 @@ const BetTypeSelector: React.FC<BetTypeSelectorProps> = ({
     }
   })
 
-  const selectedConfigs = availableBetTypes.filter(c => selectedBetTypes.includes(c.id))
+  const selectedConfig = availableBetTypes.find(c => c.id === selectedBetType)
 
   return (
     <div className="backdrop-blur-md bg-white/10 rounded-xl p-3 border-2 border-white/20 shadow-2xl">
       <div className="flex items-center gap-2 mb-2">
         <FaDice className="text-yellow-400 text-sm" />
         <h2 className="text-sm font-bold text-white">ประเภทการแทง</h2>
-        {selectedConfigs.length > 1 && (
+        {selectedConfig && (
           <span className="text-yellow-300 text-xs ml-auto">
-            เลือก {selectedConfigs.length} ประเภท
+            {selectedConfig.label}
           </span>
         )}
       </div>
@@ -83,7 +83,7 @@ const BetTypeSelector: React.FC<BetTypeSelectorProps> = ({
           const config = availableBetTypes.find(c => c.id === typeId)
           if (!config) return null
 
-          const isActive = selectedBetTypes.includes(config.id)
+          const isActive = config.id === selectedBetType
           const isDisabled = disabled
 
           return (

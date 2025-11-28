@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 interface InputModeSectionProps {
   inputMode: 'keyboard' | 'grid'
   setInputMode: (mode: 'keyboard' | 'grid') => void
-  selectedBetTypes: string[]
+  selectedBetType: string
   numberInput: string
   setNumberInput: (input: string) => void
   onAddNumber: (number: string) => void
@@ -21,7 +21,7 @@ interface InputModeSectionProps {
 const InputModeSection: React.FC<InputModeSectionProps> = ({
   inputMode,
   setInputMode,
-  selectedBetTypes,
+  selectedBetType,
   numberInput,
   setNumberInput,
   onAddNumber,
@@ -30,8 +30,8 @@ const InputModeSection: React.FC<InputModeSectionProps> = ({
   setSearchQuery
 }) => {
   const { t } = useTranslation()
-  // Use first selected bet type for config (all selected should have same digit count)
-  const currentConfig = selectedBetTypes.length > 0 ? BET_TYPES[selectedBetTypes[0]] : BET_TYPES['teng_bon_3']
+  // Use selected bet type for config
+  const currentConfig = selectedBetType ? BET_TYPES[selectedBetType] : BET_TYPES['teng_bon_3']
 
   return (
     <div className="backdrop-blur-md bg-white/10 rounded-2xl border-2 border-white/20 shadow-2xl overflow-hidden">

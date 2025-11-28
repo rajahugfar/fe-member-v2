@@ -15,14 +15,14 @@ import {
 } from '@/utils/lotteryHelpers'
 
 interface SpecialNumberOptionsProps {
-  selectedBetTypes: string[]
+  selectedBetType: string
   onAddNumbers: (numbers: string[]) => void
   shuffleEnabled: boolean
   setShuffleEnabled: (enabled: boolean) => void
 }
 
 const SpecialNumberOptions: React.FC<SpecialNumberOptionsProps> = ({
-  selectedBetTypes,
+  selectedBetType,
   onAddNumbers,
   shuffleEnabled,
   setShuffleEnabled
@@ -32,10 +32,10 @@ const SpecialNumberOptions: React.FC<SpecialNumberOptionsProps> = ({
   const [inputModalType, setInputModalType] = useState<'19' | 'rood_nha' | 'rood_lung'>('19')
   const [inputValue, setInputValue] = useState('')
 
-  // Show only for 2-digit bet types (check if any selected type matches)
-  const is2Digit = selectedBetTypes.some(t => t === 'teng_bon_2' || t === 'teng_lang_2')
-  const is3Digit = selectedBetTypes.some(t => t === 'teng_bon_3' || t === 'tode_3' || t === 'teng_lang_3')
-  const is4Tode = selectedBetTypes.some(t => t === 'tode_4')
+  // Show only for 2-digit bet types
+  const is2Digit = selectedBetType === 'teng_bon_2' || selectedBetType === 'teng_lang_2'
+  const is3Digit = selectedBetType === 'teng_bon_3' || selectedBetType === 'tode_3' || selectedBetType === 'teng_lang_3'
+  const is4Tode = selectedBetType === 'tode_4'
 
   const handleQuickGenerate = (type: string) => {
     let numbers: string[] = []
