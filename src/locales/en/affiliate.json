@@ -1,0 +1,140 @@
+{
+  "title": "Referral Program",
+  "description": "Earn {{rate}}% commission from friends' bets",
+  "myReferralLink": "My Referral Link",
+  "copyLink": "Copy Link",
+  "linkCopied": "Link copied",
+  "shareVia": "Share via",
+  "referralCode": "Referral Code",
+  "tabs": {
+    "overview": "Overview",
+    "members": "Members",
+    "revenue": "Revenue",
+    "withdraw": "Withdraw"
+  },
+  "referralLink": {
+    "title": "Referral Link",
+    "description": "Share this link with your friends. When they register and deposit, you'll earn {{rate}}% commission",
+    "copied": "Copied"
+  },
+  "stats": {
+    "title": "Statistics",
+    "totalReferrals": "Total Referrals",
+    "activeReferrals": "Active Members",
+    "totalCommission": "Total Commission",
+    "availableCommission": "Available Commission",
+    "withdrawnCommission": "Withdrawn Commission",
+    "pendingCommission": "Pending Commission",
+    "todayCommission": "Today's Commission",
+    "monthlyCommission": "This Month's Commission",
+    "commissionRate": "Commission Rate",
+    "membersInDownline": "Members in Downline",
+    "activePeople": "people ({{count}} active)",
+    "people": "people"
+  },
+  "commissionBreakdown": {
+    "title": "Revenue by Type"
+  },
+  "referredMembers": {
+    "title": "Members in Downline ({{count}} people)",
+    "name": "Name",
+    "phone": "Phone",
+    "joinDate": "Join Date",
+    "totalBet": "Total Bet",
+    "commission": "Commission",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "noMembers": "No members in downline yet",
+    "order": "Order",
+    "details": "Details",
+    "view": "View"
+  },
+  "commissionHistory": {
+    "title": "Commission History",
+    "date": "Date",
+    "member": "Member",
+    "betAmount": "Bet Amount",
+    "commission": "Commission",
+    "type": "Type",
+    "status": "Status",
+    "noHistory": "No history yet"
+  },
+  "revenue": {
+    "title": "Daily Revenue",
+    "monthlyRevenue": "This Month's Revenue",
+    "totalTransactions": "Total Transactions",
+    "noRevenue": "No revenue this month",
+    "transactions": "transactions"
+  },
+  "withdraw": {
+    "title": "Withdraw Commission to Credit",
+    "button": "Withdraw to Credit",
+    "available": "Available to Withdraw",
+    "minimum": "Minimum Withdrawal",
+    "success": "Commission withdrawn to credit successfully",
+    "failed": "Withdrawal failed",
+    "insufficient": "Insufficient balance",
+    "amountLabel": "Amount to withdraw",
+    "amountPlaceholder": "Enter amount or leave blank to withdraw all",
+    "note": "* Withdrawn amount will be added to your main credit instantly",
+    "summary": "Summary",
+    "totalCommission": "Total Commission",
+    "withdrawn": "Withdrawn",
+    "remaining": "Remaining"
+  },
+  "howItWorks": {
+    "title": "How to Earn Commission",
+    "step1": "1. Copy your referral link",
+    "step2": "2. Share the link with your friends",
+    "step3": "3. When friends register through your link",
+    "step4": "4. You'll earn {{rate}}% commission from their bets",
+    "step5": "5. Withdraw commission to credit instantly"
+  },
+  "benefits": {
+    "title": "Benefits",
+    "unlimited": "Unlimited Referrals",
+    "lifetime": "Lifetime Commission",
+    "instant": "Instant Commission",
+    "withdraw": "Withdraw Anytime"
+  },
+  "memberDetail": {
+    "title": "Member Details",
+    "viewToggle": {
+      "commission": "Commission",
+      "poys": "Bet History"
+    },
+    "tabs": {
+      "lottery": "Lottery",
+      "game": "Games"
+    },
+    "table": {
+      "date": "Date",
+      "betAmount": "Bet Amount",
+      "commission": "Commission",
+      "poyNumber": "Number",
+      "poyPeriod": "Period",
+      "winAmount": "Win Amount",
+      "status": "Status",
+      "total": "Total"
+    },
+    "empty": {
+      "commission": "No commission yet",
+      "poys": "No bets yet"
+    },
+    "poyStatus": {
+      "pending": "Pending",
+      "processed": "Processed"
+    },
+    "close": "Close"
+  },
+  "pagination": {
+    "page": "Page {{current}} / {{total}}"
+  },
+  "messages": {
+    "copySuccess": "Link copied successfully",
+    "loadDetailError": "Failed to load details",
+    "amountRequired": "Please specify amount",
+    "error": "An error occurred, please try again"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "title": "Promotions",
+  "active": "Available Promotions",
+  "claimed": "Claimed Promotions",
+  "expired": "Expired Promotions",
+  "details": "Promotion Details",
+  "terms": "Terms & Conditions",
+  "claim": "Claim",
+  "claimed_status": "Claimed",
+  "claimSuccess": "Promotion claimed successfully",
+  "claimFailed": "Failed to claim promotion",
+  "notEligible": "Not eligible",
+  "alreadyClaimed": "Already claimed",
+  "depositRequired": "Deposit required",
+  "minimumDeposit": "Minimum Deposit",
+  "bonusAmount": "Bonus",
+  "turnoverRequired": "Turnover Required",
+  "validUntil": "Valid Until",
+  "applyPromoCode": "Apply Promo Code",
+  "promoCode": "Promo Code",
+  "enterPromoCode": "Enter promo code",
+  "invalidPromoCode": "Invalid promo code",
+  "types": {
+    "welcome": "Welcome Bonus",
+    "deposit": "Deposit Bonus",
+    "cashback": "Cashback",
+    "freeSpin": "Free Spins",
+    "birthday": "Birthday Bonus",
+    "vip": "VIP Bonus",
+    "referral": "Referral Bonus"
+  },
+  "howToUse": "How to Use",
+  "requirements": "Requirements",
+  "subtitle": "Receive exclusive benefits and bonuses",
+  "categories": {
+    "all": "All",
+    "cashback": "Cashback",
+    "special": "Special"
+  },
+  "messages": {
+    "loadError": "Failed to load promotions",
+    "loadDetailsError": "Failed to load details",
+    "claimError": "Failed to claim promotion",
+    "claiming": "Claiming promotion...",
+    "noPromotions": "No promotions available",
+    "fetchError": "Unable to load promotions",
+    "minDepositError": "Minimum deposit {{amount}} baht"
+  },
+  "buttons": {
+    "viewDetails": "Details",
+    "claimNow": "Claim Now",
+    "close": "Close"
+  },
+  "bonus": {
+    "label": "Bonus",
+    "percent": "Bonus {{percent}}%",
+    "max": "Max ฿{{amount}}",
+    "maxReceive": "Max receive ฿{{amount}}",
+    "received": "Bonus received:",
+    "total": "Total amount:",
+    "turnoverRequired": "Required turnover:",
+    "maxLabel": "Max receive:",
+    "baht": "baht"
+  },
+  "calculator": {
+    "title": "Calculate Bonus",
+    "selectedPromotion": "Selected promotion:",
+    "depositAmount": "Deposit Amount (baht)",
+    "depositPlaceholder": "Min {{amount}} baht",
+    "selectPromotionPrompt": "Select a promotion"
+  },
+  "promotionTypes": {
+    "new_member": "New Member",
+    "daily_first": "Daily First",
+    "normal": "Anytime",
+    "cashback": "Cashback",
+    "deposit": "Deposit Bonus",
+    "freespin": "Free Spins"
+  },
+  "fields": {
+    "minDeposit": "Min deposit:",
+    "turnover": "Turnover:",
+    "termsLabel": "Terms:",
+    "noTerms": "No terms"
+  },
+  "claimPromotion": {
+    "pageTitle": "Claim Promotion",
+    "pageSubtitle": "Select a promotion and calculate the bonus you will receive",
+    "claimButton": "Claim This Promotion"
+  }
+}

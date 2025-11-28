@@ -1,0 +1,28 @@
+{
+  "menu": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "lottery": "Lottery",
+    "games": "Games",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "promotions": "Promotions",
+    "profile": "Profile",
+    "transactions": "Transaction History",
+    "history": "History",
+    "affiliate": "Referral",
+    "luckyWheel": "Lucky Wheel",
+    "ranking": "Ranking",
+    "lotteryHistory": "Lottery History",
+    "logout": "Logout"
+  },
+  "submenu": {
+    "transactionHistory": "Transaction History",
+    "depositHistory": "Deposit History",
+    "withdrawalHistory": "Withdrawal History",
+    "bonusHistory": "Bonus History",
+    "lotteryHistory": "Lottery History",
+    "lotteryResults": "Lottery Results",
+    "gameHistory": "Game History"
+  }
+}

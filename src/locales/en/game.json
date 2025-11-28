@@ -1,0 +1,82 @@
+{
+  "title": "Games",
+  "lobby": "Game Lobby",
+  "categories": {
+    "all": "All",
+    "slot": "Slots",
+    "casino": "Casino",
+    "liveCasino": "Live Casino",
+    "fishing": "Fishing",
+    "sport": "Sports",
+    "poker": "Poker",
+    "gameCard": "Card Games",
+    "baccarat": "Baccarat",
+    "roulette": "Roulette",
+    "other": "Other"
+  },
+  "providers": "Providers",
+  "popular": "Popular",
+  "new": "New Games",
+  "recommended": "Recommended",
+  "playNow": "Play Now",
+  "demo": "Demo",
+  "realMoney": "Real Money",
+  "loading": "Loading game...",
+  "loginRequired": "Please login to play",
+  "insufficientCredit": "Insufficient credit",
+  "gameUnavailable": "Game unavailable",
+  "search": "Search games",
+  "favorites": "Favorites",
+  "recentPlayed": "Recently Played",
+  "jackpot": "Jackpot",
+  "liveCasino": "Live Casino",
+  "virtualSports": "Virtual Sports",
+  "actionButtons": {
+    "account": "Account",
+    "deposit": "Deposit/Withdraw",
+    "register": "Register",
+    "contact": "Contact"
+  },
+  "breadcrumb": {
+    "home": "Home"
+  },
+  "providerFilter": {
+    "viewingFrom": "Viewing games from provider:",
+    "viewAll": "View All"
+  },
+  "searchPlaceholder": "Search...",
+  "noGamesFound": "No games found",
+  "badges": {
+    "featured": "Featured",
+    "new": "New"
+  },
+  "buttons": {
+    "play": "Play",
+    "demo": "Demo"
+  },
+  "loadingModal": {
+    "title": "Opening Game",
+    "message": "Please wait... Transferring credits and preparing game"
+  },
+  "transferModal": {
+    "title": "Transfer Money",
+    "toGame": "To Game",
+    "fromGame": "From Game",
+    "mainWallet": "Main Wallet",
+    "gameWallet": "Game Wallet",
+    "amount": "Amount",
+    "amountPlaceholder": "0.00",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  },
+  "messages": {
+    "logoutSuccess": "Logged out successfully",
+    "loadGameError": "Failed to load games",
+    "playGameError": "Failed to open game",
+    "transferSuccess": "Transfer successful",
+    "transferError": "Transfer failed",
+    "enterAmount": "Please enter amount",
+    "insufficientMainWallet": "Insufficient balance in main wallet",
+    "insufficientGameWallet": "Insufficient balance in game wallet"
+  }
+}

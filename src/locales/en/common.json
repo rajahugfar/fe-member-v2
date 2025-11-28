@@ -1,0 +1,75 @@
+{
+  "buttons": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "reset": "Reset",
+    "clear": "Clear",
+    "add": "Add",
+    "update": "Update",
+    "view": "View",
+    "download": "Download",
+    "upload": "Upload",
+    "copy": "Copy",
+    "refresh": "Refresh"
+  },
+  "status": {
+    "success": "Success",
+    "pending": "Pending",
+    "processing": "Processing",
+    "failed": "Failed",
+    "cancelled": "Cancelled",
+    "active": "Active",
+    "inactive": "Inactive",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "completed": "Completed",
+    "expired": "Expired"
+  },
+  "messages": {
+    "loading": "Loading...",
+    "noData": "No data",
+    "error": "An error occurred",
+    "success": "Operation successful",
+    "confirmDelete": "Are you sure you want to delete?",
+    "confirmAction": "Are you sure?",
+    "saved": "Saved",
+    "deleted": "Deleted",
+    "updated": "Updated",
+    "copied": "Copied"
+  },
+  "form": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "invalidPhone": "Invalid phone number",
+    "passwordMismatch": "Passwords do not match",
+    "minLength": "Must be at least {{min}} characters",
+    "maxLength": "Must not exceed {{max}} characters",
+    "invalidFormat": "Invalid format"
+  },
+  "time": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "lastMonth": "Last Month",
+    "custom": "Custom",
+    "from": "From",
+    "to": "To"
+  },
+  "currency": {
+    "baht": "Baht",
+    "amount": "Amount",
+    "balance": "Balance",
+    "total": "Total"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "header": {
+    "subtitle": "Online Casino #1"
+  },
+  "menu": {
+    "profile": "Profile",
+    "deposit": "Deposit/Withdraw",
+    "register": "Register",
+    "contact": "Contact",
+    "news": "News",
+    "updates": "Updates"
+  },
+  "gameCategories": {
+    "boxing": "Boxing",
+    "football": "Football",
+    "baccarat": "Baccarat",
+    "fishing": "Fishing Games",
+    "bicycle": "Bicycle Poker",
+    "slots": "Online Slots",
+    "cockfight": "Cockfight",
+    "lottery": "Online Lottery"
+  },
+  "sections": {
+    "gameProviders": "Game Providers",
+    "promotions": "Activities"
+  },
+  "seo": {
+    "title": "{{siteName}} Online Casino - Easy to Play, Real Payouts, Guaranteed Stability",
+    "description": "Thailand's #1 online casino website with international standards, secure system, fast deposits and withdrawals, available 24/7",
+    "content": "Wide variety of games including Baccarat, Slots, Roulette, Hi-Lo and many other live casino games from world-leading providers. With many promotions, welcome bonuses, cashback, fast automated system",
+    "contentPlain": "Wide variety of games including Baccarat, Slots, Roulette, Hi-Lo and many other live casino games from world-leading providers. With many promotions, welcome bonuses, cashback, fast automated system",
+    "highlightedGames": "Baccarat, Slots, Roulette, Hi-Lo"
+  },
+  "faq": {
+    "title": "FAQ - Frequently Asked Questions About {{siteName}}",
+    "questions": {
+      "trustworthy": {
+        "question": "Is {{siteName}} a trustworthy online casino?",
+        "answer": "Our online casino has international standards, properly licensed according to law, with high security systems"
+      },
+      "games": {
+        "question": "What games are available at {{siteName}}?",
+        "answer": "Many games available including slots, baccarat, roulette, hi-lo, dragon tiger, fishing games, and much more"
+      },
+      "transaction": {
+        "question": "How long do deposits and withdrawals take at {{siteName}}?",
+        "answer": "Automated system, fast within 30 seconds, no minimum"
+      },
+      "promotions": {
+        "question": "What promotions does {{siteName}} offer?",
+        "answer": "Many promotions including welcome bonus, cashback, first deposit bonus, and other special promotions"
+      },
+      "contact": {
+        "question": "How can I contact {{siteName}} support team?",
+        "answer": "Available 24/7 through Line, Telegram, Facebook or live chat"
+      }
+    }
+  },
+  "footer": {
+    "certifications": "Certifications",
+    "responsibleGaming": "Responsible Gaming",
+    "paymentMethods": "Payment methods",
+    "copyright": "© {{year}} {{siteName}}. All rights reserved."
+  },
+  "popup": {
+    "loginRequired": {
+      "title": "Login to Play Games",
+      "message": "Please login or register",
+      "submessage": "to play games",
+      "loginButton": "Login",
+      "registerButton": "Register",
+      "cancelButton": "Cancel"
+    }
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "title": "แนะนำเพื่อน",
+  "description": "รับค่าคอมมิชชั่น {{rate}}% จากยอดเดิมพันของเพื่อน",
+  "myReferralLink": "ลิงก์แนะนำของฉัน",
+  "copyLink": "คัดลอกลิงก์",
+  "linkCopied": "คัดลอกลิงก์แล้ว",
+  "shareVia": "แชร์ผ่าน",
+  "referralCode": "รหัสแนะนำ",
+  "tabs": {
+    "overview": "ภาพรวม",
+    "members": "สมาชิก",
+    "revenue": "รายได้",
+    "withdraw": "ถอนเงิน"
+  },
+  "referralLink": {
+    "title": "ลิงก์แนะนำเพื่อน",
+    "description": "แชร์ลิงก์นี้ให้เพื่อนของคุณ เมื่อเพื่อนสมัครและฝากเงิน คุณจะได้รับค่าคอมมิชชั่น {{rate}}%",
+    "copied": "คัดลอกแล้ว"
+  },
+  "stats": {
+    "title": "สถิติ",
+    "totalReferrals": "จำนวนคนที่แนะนำ",
+    "activeReferrals": "สมาชิกที่ใช้งาน",
+    "totalCommission": "ค่าคอมมิชชั่นทั้งหมด",
+    "availableCommission": "คอมมิชชั่นคงเหลือ",
+    "withdrawnCommission": "คอมมิชชั่นที่ถอนแล้ว",
+    "pendingCommission": "คอมมิชชั่นรอดำเนินการ",
+    "todayCommission": "คอมมิชชั่นวันนี้",
+    "monthlyCommission": "คอมมิชชั่นเดือนนี้",
+    "commissionRate": "อัตราค่าคอมมิชชั่น",
+    "membersInDownline": "สมาชิกในสายงาน",
+    "activePeople": "คน (ใช้งาน {{count}})",
+    "people": "คน"
+  },
+  "commissionBreakdown": {
+    "title": "รายได้แยกตามประเภท"
+  },
+  "referredMembers": {
+    "title": "สมาชิกในสายงาน ({{count}} คน)",
+    "name": "ชื่อ",
+    "phone": "เบอร์โทร",
+    "joinDate": "วันที่สมัคร",
+    "totalBet": "ยอดแทงรวม",
+    "commission": "คอมมิชชั่น",
+    "status": "สถานะ",
+    "active": "ใช้งาน",
+    "inactive": "ไม่ใช้งาน",
+    "noMembers": "ยังไม่มีสมาชิกในสายงาน",
+    "order": "ลำดับ",
+    "details": "รายละเอียด",
+    "view": "ดู"
+  },
+  "commissionHistory": {
+    "title": "ประวัติคอมมิชชั่น",
+    "date": "วันที่",
+    "member": "สมาชิก",
+    "betAmount": "ยอดแทง",
+    "commission": "คอมมิชชั่น",
+    "type": "ประเภท",
+    "status": "สถานะ",
+    "noHistory": "ยังไม่มีประวัติ"
+  },
+  "revenue": {
+    "title": "รายได้รายวัน",
+    "monthlyRevenue": "รายได้เดือนนี้",
+    "totalTransactions": "จำนวนรายการ",
+    "noRevenue": "ไม่มีรายได้ในเดือนนี้",
+    "transactions": "รายการ"
+  },
+  "withdraw": {
+    "title": "ถอนค่าคอมมิชชั่นเข้าเครดิต",
+    "button": "ถอนเข้าเครดิต",
+    "available": "ยอดที่สามารถถอนได้",
+    "minimum": "ถอนขั้นต่ำ",
+    "success": "ถอนค่าคอมมิชชั่นเข้าเครดิตสำเร็จ",
+    "failed": "ถอนไม่สำเร็จ",
+    "insufficient": "ยอดเงินไม่เพียงพอ",
+    "amountLabel": "จำนวนเงินที่ต้องการถอน",
+    "amountPlaceholder": "ใส่จำนวน หรือเว้นว่างเพื่อถอนทั้งหมด",
+    "note": "* ยอดที่ถอนจะเข้าเครดิตหลักของคุณทันที",
+    "summary": "สรุปข้อมูล",
+    "totalCommission": "คอมมิชชั่นทั้งหมด",
+    "withdrawn": "ถอนไปแล้ว",
+    "remaining": "คงเหลือ"
+  },
+  "howItWorks": {
+    "title": "วิธีรับค่าคอมมิชชั่น",
+    "step1": "1. คัดลอกลิงก์แนะนำเพื่อนของคุณ",
+    "step2": "2. แชร์ลิงก์ให้เพื่อนของคุณ",
+    "step3": "3. เมื่อเพื่อนสมัครสมาชิกผ่านลิงก์ของคุณ",
+    "step4": "4. คุณจะได้รับค่าคอมมิชชั่น {{rate}}% จากยอดเดิมพันของเพื่อน",
+    "step5": "5. สามารถถอนค่าคอมมิชชั่นเข้าเครดิตได้ทันที"
+  },
+  "benefits": {
+    "title": "สิทธิประโยชน์",
+    "unlimited": "แนะนำได้ไม่จำกัด",
+    "lifetime": "รับคอมมิชชั่นตลอดชีพ",
+    "instant": "รับคอมมิชชั่นทันที",
+    "withdraw": "ถอนได้ทุกเมื่อ"
+  },
+  "memberDetail": {
+    "title": "รายละเอียดสมาชิก",
+    "viewToggle": {
+      "commission": "ค่าคอมมิชชั่น",
+      "poys": "รายการโพย"
+    },
+    "tabs": {
+      "lottery": "หวย",
+      "game": "เกมส์"
+    },
+    "table": {
+      "date": "วันที่",
+      "betAmount": "ยอดแทง",
+      "commission": "ค่าคอมมิชชั่น",
+      "poyNumber": "เลขโพย",
+      "poyPeriod": "งวด",
+      "winAmount": "ยอดถูก",
+      "status": "สถานะ",
+      "total": "รวม"
+    },
+    "empty": {
+      "commission": "ยังไม่มีค่าคอมมิชชั่น",
+      "poys": "ยังไม่มีรายการแทง"
+    },
+    "poyStatus": {
+      "pending": "รอผล",
+      "processed": "ประมวลแล้ว"
+    },
+    "close": "ปิด"
+  },
+  "pagination": {
+    "page": "หน้า {{current}} / {{total}}"
+  },
+  "messages": {
+    "copySuccess": "คัดลอกลิงก์สำเร็จ",
+    "loadDetailError": "โหลดรายละเอียดไม่สำเร็จ",
+    "amountRequired": "กรุณาระบุจำนวนเงิน",
+    "error": "เกิดข้อผิดพลาด กรุณาลองใหม่"
+  }
+}

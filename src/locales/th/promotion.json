@@ -1,0 +1,91 @@
+{
+  "title": "โปรโมชั่น",
+  "active": "โปรโมชั่นที่ใช้งานได้",
+  "claimed": "โปรโมชั่นที่รับแล้ว",
+  "expired": "โปรโมชั่นหมดอายุ",
+  "details": "รายละเอียดโปรโมชั่น",
+  "terms": "เงื่อนไข",
+  "claim": "รับโปรโมชั่น",
+  "claimed_status": "รับแล้ว",
+  "claimSuccess": "รับโปรโมชั่นสำเร็จ",
+  "claimFailed": "รับโปรโมชั่นไม่สำเร็จ",
+  "notEligible": "ไม่ผ่านเงื่อนไข",
+  "alreadyClaimed": "รับโปรโมชั่นนี้แล้ว",
+  "depositRequired": "ต้องฝากเงินก่อน",
+  "minimumDeposit": "ฝากขั้นต่ำ",
+  "bonusAmount": "โบนัส",
+  "turnoverRequired": "ยอดเทิร์น",
+  "validUntil": "ใช้ได้ถึง",
+  "applyPromoCode": "ใช้โค้ดโปรโมชั่น",
+  "promoCode": "โค้ดโปรโมชั่น",
+  "enterPromoCode": "กรอกโค้ดโปรโมชั่น",
+  "invalidPromoCode": "โค้ดโปรโมชั่นไม่ถูกต้อง",
+  "types": {
+    "welcome": "โบนัสต้อนรับ",
+    "deposit": "โบนัสฝากเงิน",
+    "cashback": "คืนยอดเสีย",
+    "freeSpin": "ฟรีสปิน",
+    "birthday": "โบนัสวันเกิด",
+    "vip": "โบนัสสมาชิก VIP",
+    "referral": "โบนัสแนะนำเพื่อน"
+  },
+  "howToUse": "วิธีใช้งาน",
+  "requirements": "เงื่อนไขการใช้งาน",
+  "subtitle": "รับสิทธิพิเศษและโบนัสมากมาย",
+  "categories": {
+    "all": "ทั้งหมด",
+    "cashback": "คืนยอดเสีย",
+    "special": "พิเศษ"
+  },
+  "messages": {
+    "loadError": "โหลดโปรโมชั่นไม่สำเร็จ",
+    "loadDetailsError": "โหลดรายละเอียดไม่สำเร็จ",
+    "claimError": "รับโปรโมชั่นไม่สำเร็จ",
+    "claiming": "กำลังรับโปรโมชั่น...",
+    "noPromotions": "ไม่มีโปรโมชั่นในขณะนี้",
+    "fetchError": "ไม่สามารถโหลดโปรโมชั่นได้",
+    "minDepositError": "ยอดฝากขั้นต่ำ {{amount}} บาท"
+  },
+  "buttons": {
+    "viewDetails": "รายละเอียด",
+    "claimNow": "รับเลย",
+    "close": "ปิด"
+  },
+  "bonus": {
+    "label": "โบนัส",
+    "percent": "โบนัส {{percent}}%",
+    "max": "สูงสุด ฿{{amount}}",
+    "maxReceive": "รับได้สูงสุด ฿{{amount}}",
+    "received": "โบนัสที่ได้รับ:",
+    "total": "ยอดรวมที่ได้:",
+    "turnoverRequired": "เทิร์นที่ต้องทำ:",
+    "maxLabel": "รับสูงสุด:",
+    "baht": "บาท"
+  },
+  "calculator": {
+    "title": "คำนวณโบนัส",
+    "selectedPromotion": "โปรโมชั่นที่เลือก:",
+    "depositAmount": "ยอดฝาก (บาท)",
+    "depositPlaceholder": "ขั้นต่ำ {{amount}} บาท",
+    "selectPromotionPrompt": "เลือกโปรโมชั่นที่ต้องการ"
+  },
+  "promotionTypes": {
+    "new_member": "สมาชิกใหม่",
+    "daily_first": "ครั้งแรกของวัน",
+    "normal": "รับได้ตลอด",
+    "cashback": "คืนยอดเสิย",
+    "deposit": "โบนัสฝาก",
+    "freespin": "ฟรีสปิน"
+  },
+  "fields": {
+    "minDeposit": "ฝากขั้นต่ำ:",
+    "turnover": "เทิร์นโอเวอร์:",
+    "termsLabel": "เงื่อนไข:",
+    "noTerms": "ไม่มีเงื่อนไข"
+  },
+  "claimPromotion": {
+    "pageTitle": "รับโปรโมชั่น",
+    "pageSubtitle": "เลือกโปรโมชั่นและคำนวณโบนัสที่คุณจะได้รับ",
+    "claimButton": "รับโปรโมชั่นนี้"
+  }
+}

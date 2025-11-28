@@ -1,0 +1,28 @@
+{
+  "menu": {
+    "home": "หน้าแรก",
+    "dashboard": "แดชบอร์ด",
+    "lottery": "หวย",
+    "games": "เกมส์",
+    "deposit": "ฝากเงิน",
+    "withdraw": "ถอนเงิน",
+    "promotions": "โปรโมชั่น",
+    "profile": "โปรไฟล์",
+    "transactions": "ประวัติการเงิน",
+    "history": "ประวัติ",
+    "affiliate": "แนะนำเพื่อน",
+    "luckyWheel": "วงล้อนำโชค",
+    "ranking": "อันดับ",
+    "lotteryHistory": "ประวัติโพย",
+    "logout": "ออกจากระบบ"
+  },
+  "submenu": {
+    "transactionHistory": "ประวัติธุรกรรม",
+    "depositHistory": "ประวัติฝาก",
+    "withdrawalHistory": "ประวัติถอน",
+    "bonusHistory": "ประวัติโบนัส",
+    "lotteryHistory": "ประวัติแทงหวย",
+    "lotteryResults": "ผลหวย",
+    "gameHistory": "ประวัติเล่นเกม"
+  }
+}

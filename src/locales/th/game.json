@@ -1,0 +1,82 @@
+{
+  "title": "เกมส์",
+  "lobby": "ล็อบบี้เกม",
+  "categories": {
+    "all": "ทั้งหมด",
+    "slot": "สล็อต",
+    "casino": "คาสิโน",
+    "liveCasino": "คาสิโนสด",
+    "fishing": "ยิงปลา",
+    "sport": "กีฬา",
+    "poker": "โป๊กเกอร์",
+    "gameCard": "เกมไพ่",
+    "baccarat": "บาคาร่า",
+    "roulette": "รูเล็ต",
+    "other": "อื่นๆ"
+  },
+  "providers": "ค่ายเกม",
+  "popular": "ยอดนิยม",
+  "new": "เกมใหม่",
+  "recommended": "แนะนำ",
+  "playNow": "เล่นเลย",
+  "demo": "ทดลองเล่น",
+  "realMoney": "เงินจริง",
+  "loading": "กำลังโหลดเกม...",
+  "loginRequired": "กรุณาเข้าสู่ระบบก่อนเล่น",
+  "insufficientCredit": "เครดิตไม่เพียงพอ",
+  "gameUnavailable": "เกมไม่พร้อมใช้งาน",
+  "search": "ค้นหาเกม",
+  "favorites": "เกมโปรด",
+  "recentPlayed": "เล่นล่าสุด",
+  "jackpot": "แจ็คพอต",
+  "liveCasino": "คาสิโนสด",
+  "virtualSports": "กีฬาเสมือน",
+  "actionButtons": {
+    "account": "บัญชี",
+    "deposit": "ฝากถอน",
+    "register": "สมัคร",
+    "contact": "ติดต่อ"
+  },
+  "breadcrumb": {
+    "home": "หน้าแรก"
+  },
+  "providerFilter": {
+    "viewingFrom": "กำลังดูเกมจากค่าย:",
+    "viewAll": "ดูทั้งหมด"
+  },
+  "searchPlaceholder": "ค้นหา...",
+  "noGamesFound": "ไม่พบเกม",
+  "badges": {
+    "featured": "แนะนำ",
+    "new": "ใหม่"
+  },
+  "buttons": {
+    "play": "เล่น",
+    "demo": "ทดลอง"
+  },
+  "loadingModal": {
+    "title": "กำลังเปิดเกม",
+    "message": "กรุณารอสักครู่... กำลังโอนเครดิตและเตรียมเกม"
+  },
+  "transferModal": {
+    "title": "โอนเงิน",
+    "toGame": "โอนเข้าเกม",
+    "fromGame": "โอนออกเกม",
+    "mainWallet": "กระเป๋าหลัก",
+    "gameWallet": "กระเป๋าเกม",
+    "amount": "จำนวนเงิน",
+    "amountPlaceholder": "0.00",
+    "confirm": "ยืนยัน",
+    "cancel": "ยกเลิก"
+  },
+  "messages": {
+    "logoutSuccess": "ออกจากระบบสำเร็จ",
+    "loadGameError": "โหลดเกมไม่สำเร็จ",
+    "playGameError": "เปิดเกมไม่สำเร็จ",
+    "transferSuccess": "โอนเงินสำเร็จ",
+    "transferError": "โอนเงินไม่สำเร็จ",
+    "enterAmount": "กรุณากรอกจำนวนเงิน",
+    "insufficientMainWallet": "ยอดเงินในกระเป๋าหลักไม่เพียงพอ",
+    "insufficientGameWallet": "ยอดเงินในกระเป๋าเกมไม่เพียงพอ"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "buttons": {
+    "submit": "ยืนยัน",
+    "cancel": "ยกเลิก",
+    "save": "บันทึก",
+    "edit": "แก้ไข",
+    "delete": "ลบ",
+    "close": "ปิด",
+    "back": "ย้อนกลับ",
+    "next": "ถัดไป",
+    "previous": "ก่อนหน้า",
+    "confirm": "ยืนยัน",
+    "search": "ค้นหา",
+    "filter": "กรอง",
+    "reset": "รีเซ็ต",
+    "clear": "ล้าง",
+    "add": "เพิ่ม",
+    "update": "อัปเดต",
+    "view": "ดู",
+    "download": "ดาวน์โหลด",
+    "upload": "อัปโหลด",
+    "copy": "คัดลอก",
+    "refresh": "รีเฟรช"
+  },
+  "status": {
+    "success": "สำเร็จ",
+    "pending": "รอดำเนินการ",
+    "processing": "กำลังดำเนินการ",
+    "failed": "ล้มเหลว",
+    "cancelled": "ยกเลิก",
+    "active": "ใช้งาน",
+    "inactive": "ไม่ใช้งาน",
+    "approved": "อนุมัติ",
+    "rejected": "ปฏิเสธ",
+    "completed": "เสร็จสิ้น",
+    "expired": "หมดอายุ"
+  },
+  "messages": {
+    "loading": "กำลังโหลด...",
+    "noData": "ไม่มีข้อมูล",
+    "error": "เกิดข้อผิดพลาด",
+    "success": "ดำเนินการสำเร็จ",
+    "confirmDelete": "คุณแน่ใจหรือไม่ที่จะลบ?",
+    "confirmAction": "คุณแน่ใจหรือไม่?",
+    "saved": "บันทึกแล้ว",
+    "deleted": "ลบแล้ว",
+    "updated": "อัปเดตแล้ว",
+    "copied": "คัดลอกแล้ว"
+  },
+  "form": {
+    "required": "กรุณากรอกข้อมูล",
+    "invalidEmail": "อีเมลไม่ถูกต้อง",
+    "invalidPhone": "เบอร์โทรไม่ถูกต้อง",
+    "passwordMismatch": "รหัสผ่านไม่ตรงกัน",
+    "minLength": "ต้องมีอย่างน้อย {{min}} ตัวอักษร",
+    "maxLength": "ต้องไม่เกิน {{max}} ตัวอักษร",
+    "invalidFormat": "รูปแบบไม่ถูกต้อง"
+  },
+  "time": {
+    "today": "วันนี้",
+    "yesterday": "เมื่อวาน",
+    "thisWeek": "สัปดาห์นี้",
+    "thisMonth": "เดือนนี้",
+    "lastMonth": "เดือนที่แล้ว",
+    "custom": "กำหนดเอง",
+    "from": "จาก",
+    "to": "ถึง"
+  },
+  "currency": {
+    "baht": "บาท",
+    "amount": "จำนวนเงิน",
+    "balance": "ยอดคงเหลือ",
+    "total": "ยอดรวม"
+  }
+}

@@ -60,11 +60,11 @@ import SiteSettingsManagement from '@pages/admin/SiteSettingsManagement'
 import ChatManagement from '@pages/admin/ChatManagement'
 
 // Member Lottery Pages
-import MemberLottery from '@pages/member/MemberLottery'
-import LotteryBetting from '@pages/member/LotteryBetting'
-import LotteryHistory from '@pages/member/LotteryHistory'
-import LotteryResults from '@pages/member/LotteryResults'
-import LotteryPoyDetail from '@pages/member/LotteryPoyDetail'
+import MemberLottery from '@pages/lottery/MemberLottery'
+import LotteryBetting from '@pages/lottery/LotteryBetting'
+import LotteryHistory from '@pages/lottery/LotteryHistory'
+import LotteryResults from '@pages/lottery/LotteryResults'
+import LotteryPoyDetail from '@pages/lottery/LotteryPoyDetail'
 
 // New Member System Pages
 import MemberLogin from '@pages/member/Login'

@@ -1,0 +1,204 @@
+{
+  "title": "Transactions",
+  "history": "Transaction History",
+  "depositHistory": "Deposit History",
+  "withdrawalHistory": "Withdrawal History",
+  "bonusHistory": "Bonus History",
+  "type": "Type",
+  "amount": "Amount",
+  "date": "Date",
+  "time": "Time",
+  "status": "Status",
+  "reference": "Reference",
+  "detail": "Details",
+  "types": {
+    "deposit": "Deposit",
+    "withdrawal": "Withdrawal",
+    "bonus": "Bonus",
+    "refund": "Refund",
+    "commission": "Commission",
+    "win": "Win",
+    "bet": "Bet",
+    "transfer": "Transfer",
+    "adjustment": "Adjustment"
+  },
+  "statuses": {
+    "pending": "Pending",
+    "processing": "Processing",
+    "completed": "Completed",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "failed": "Failed"
+  },
+  "filter": {
+    "all": "All",
+    "dateRange": "Date Range",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "apply": "Apply"
+  },
+  "summary": {
+    "totalDeposit": "Total Deposit",
+    "totalWithdrawal": "Total Withdrawal",
+    "totalBonus": "Total Bonus",
+    "netProfit": "Net Profit/Loss"
+  },
+  "noTransactions": "No transactions",
+  "filterData": "Filter Data",
+  "statusLabel": "Status",
+  "fromDate": "From Date",
+  "toDate": "To Date",
+  "dateTimeLabel": "Date/Time",
+  "amountLabel": "Amount",
+  "slipLabel": "Slip",
+  "noteLabel": "Note",
+  "viewSlip": "View Slip",
+  "noDeposits": "No deposits found",
+  "noWithdrawals": "No withdrawals found",
+  "noBonuses": "No bonuses found",
+  "showingRecords": "Showing {{from}}-{{to}} of {{total}} records",
+  "previousPage": "Previous",
+  "nextPage": "Next",
+  "bonusTypes": {
+    "DEPOSIT": "Deposit Bonus",
+    "CASHBACK": "Cashback",
+    "SPECIAL": "Special Bonus",
+    "WELCOME": "Welcome Bonus"
+  },
+  "deposit": {
+    "title": "Top Up Gold Coins 💰",
+    "subtitle": "Power up for your adventure",
+    "steps": {
+      "method": "Method",
+      "amount": "Amount",
+      "bank": "Bank",
+      "slip": "Slip",
+      "confirm": "Confirm"
+    },
+    "methods": {
+      "transfer": "Bank Transfer",
+      "transferDesc": "Transfer via bank and upload slip",
+      "qr": "Scan QR Code",
+      "qrDesc": "Scan PromptPay QR for easy deposit",
+      "selectMethod": "Select deposit method",
+      "noMethodsAvailable": "Deposit system temporarily unavailable",
+      "contactAdmin": "Please contact admin for assistance"
+    },
+    "amount": {
+      "selectAmount": "Select gold coin amount",
+      "enterCustom": "Or enter custom amount",
+      "minAmount": "Minimum deposit 100 baht"
+    },
+    "bank": {
+      "selectBank": "Select transfer channel",
+      "copyAccount": "Account number copied"
+    },
+    "slip": {
+      "uploadSlip": "Upload transfer proof",
+      "selectFile": "Select file from device",
+      "clickToUpload": "Click to upload slip",
+      "takePhoto": "Take photo of slip",
+      "scanQr": "Scan QR Code",
+      "fileSupport": "Supports JPG, PNG (max 5MB)",
+      "deleteImage": "Delete image"
+    },
+    "confirm": {
+      "title": "Confirm deposit information",
+      "depositAmount": "Deposit amount",
+      "depositTo": "Transfer to account",
+      "slipImage": "Transfer slip",
+      "promoCode": "Promo code (optional)",
+      "promoPlaceholder": "WELCOME100"
+    },
+    "qrPayment": {
+      "title": "Scan QR to pay",
+      "amountToPay": "Amount to pay",
+      "orderId": "Order ID",
+      "depositId": "Deposit ID",
+      "status": "Status",
+      "waitingPayment": "Waiting for payment",
+      "howToPay": "How to pay",
+      "step1": "Open your banking app",
+      "step2": "Select scan QR Code",
+      "step3": "Scan QR Code above",
+      "step4": "Confirm transfer",
+      "step5": "Wait for auto approval (approx. 1-2 minutes)",
+      "openPaymentLink": "Open payment link",
+      "viewHistory": "View deposit history",
+      "qrExpire": "This QR Code will expire in 15 minutes"
+    },
+    "qrScanner": {
+      "title": "Scan QR Code",
+      "instruction": "Point camera at QR Code on transfer slip",
+      "success": "QR Code scanned successfully!",
+      "qrData": "QR Code data:"
+    },
+    "buttons": {
+      "back": "Back",
+      "next": "Next",
+      "confirm": "Confirm deposit",
+      "submitting": "Submitting request..."
+    },
+    "messages": {
+      "loadBanksFailed": "Failed to load company banks",
+      "selectMethod": "Please select deposit method",
+      "minAmount": "Minimum deposit 100 baht",
+      "selectBank": "Please select transfer bank",
+      "uploadSlip": "Please upload transfer slip",
+      "fillAllFields": "Please fill in all fields",
+      "imageOnly": "Please select image files only",
+      "fileTooLarge": "File size exceeds 5MB",
+      "cameraPermission": "Cannot open camera. Please allow camera access",
+      "qrCreated": "QR Code created successfully",
+      "qrFailed": "Failed to create QR Code",
+      "success": "Deposit request sent successfully. Please wait for verification",
+      "failed": "Deposit failed"
+    }
+  },
+  "withdraw": {
+    "title": "Withdraw",
+    "subtitle": "Enter information to withdraw from system",
+    "memberInfo": "Member information",
+    "noName": "No name specified",
+    "bankAccount": "Receiving bank account",
+    "needBankAccount": "Please add bank account in profile before withdrawing",
+    "turnoverInfo": "Turnover information",
+    "turnoverCompleted": "Turnover completed:",
+    "turnoverRequired": "Required turnover:",
+    "turnoverRemaining": "Remaining:",
+    "turnoverDone": "Turnover completed",
+    "turnoverNotDone": "Turnover not completed",
+    "noTurnoverRequired": "No turnover requirement",
+    "amountLabel": "Withdrawal amount",
+    "amountPlaceholder": "0.00",
+    "minAmount": "Minimum:",
+    "maxAmount": "Maximum:",
+    "quickAmounts": "Quick amounts",
+    "withdrawAll": "Withdraw all",
+    "infoBox": {
+      "processingTime": "• Processing time 1-5 minutes (business hours)",
+      "checkName": "• Verify account name matches registration",
+      "contactSupport": "• Contact support if any issues"
+    },
+    "summary": {
+      "title": "Withdrawal summary",
+      "withdrawAmount": "Withdrawal amount:",
+      "toAccount": "Transfer to account:",
+      "remainingBalance": "Remaining balance:"
+    },
+    "buttons": {
+      "confirm": "Confirm withdrawal",
+      "submitting": "Submitting request..."
+    },
+    "messages": {
+      "noProfile": "Profile not found",
+      "needBank": "Please add bank account in profile before withdrawing",
+      "minAmount": "Minimum withdrawal {{amount}} baht",
+      "maxAmount": "Maximum withdrawal {{amount}} baht",
+      "insufficientBalance": "Insufficient balance",
+      "success": "Withdrawal request sent successfully. Please wait for verification",
+      "failed": "Withdrawal failed"
+    }
+  }
+}
