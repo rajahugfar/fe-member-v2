@@ -5,6 +5,7 @@ import { FaCheckCircle } from 'react-icons/fa'
 import html2canvas from 'html2canvas'
 import { CartItem } from '@/hooks/useLotteryState'
 import { formatNumber } from '@/utils/lotteryHelpers'
+import { useTranslation } from 'react-i18next'
 
 /**
  * Bulk Price Modal
@@ -21,6 +22,7 @@ export const BulkPriceModal: React.FC<BulkPriceModalProps> = ({
   onClose,
   onApply
 }) => {
+  const { t } = useTranslation()
   const [price, setPrice] = useState('')
 
   const handleApply = () => {
@@ -40,7 +42,7 @@ export const BulkPriceModal: React.FC<BulkPriceModalProps> = ({
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-2xl p-8 max-w-md w-full border-2 border-white/20 shadow-2xl"
+        className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 max-w-md w-full border-2 border-gray-700 shadow-2xl"
       >
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-2xl font-bold text-white">ใส่ราคาทั้งหมด</h3>
@@ -88,7 +90,7 @@ export const BulkPriceModal: React.FC<BulkPriceModalProps> = ({
             <button
               onClick={handleApply}
               disabled={!price || parseFloat(price) <= 0}
-              className="flex-1 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-xl font-semibold transition-all disabled:opacity-50"
+              className="flex-1 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-xl font-semibold transition-all disabled:opacity-50"
             >
               ใส่ราคา
             </button>
@@ -147,7 +149,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-2xl p-8 max-w-2xl w-full border-2 border-white/20 shadow-2xl my-8"
+        className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 max-w-2xl w-full border-2 border-gray-700 shadow-2xl my-8"
       >
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-2xl font-bold text-white">ยืนยันการแทง</h3>
@@ -189,7 +191,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         </div>
 
         {/* Summary */}
-        <div className="bg-gradient-to-r from-yellow-600/30 to-orange-600/30 rounded-xl p-4 mb-4 border border-yellow-400/30">
+        <div className="bg-gradient-to-r from-gray-800/80 to-gray-700/80 rounded-xl p-4 mb-4 border border-gray-600">
           <div className="flex justify-between text-white mb-2">
             <span className="font-semibold">ยอดรวมทั้งหมด:</span>
             <span className="text-2xl font-bold text-yellow-300">{formatNumber(totalAmount)} ฿</span>
@@ -222,7 +224,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           </button>
           <button
             onClick={handleConfirm}
-            className="flex-1 py-4 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2"
+            className="flex-1 py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2"
           >
             <FiCheck className="text-xl" />
             ยืนยันการแทง
@@ -304,7 +306,7 @@ export const SuccessModal: React.FC<SuccessModalProps> = ({
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-2xl p-8 max-w-2xl w-full border-2 border-white/20 shadow-2xl my-8"
+        className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 max-w-2xl w-full border-2 border-gray-700 shadow-2xl my-8"
       >
         {/* Success Icon */}
         <div className="text-center mb-6">
@@ -401,7 +403,7 @@ export const SuccessModal: React.FC<SuccessModalProps> = ({
           </button>
           <button
             onClick={onBetAgain}
-            className="py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2"
+            className="py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2"
           >
             <FiPlusCircle />
             แทงต่อ

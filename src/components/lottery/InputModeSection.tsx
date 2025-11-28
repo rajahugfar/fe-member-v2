@@ -4,11 +4,12 @@ import { FiCheck, FiX, FiSearch } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BET_TYPES, generateNumberGrid, filterNumbers } from '@/utils/lotteryHelpers'
 import { CartItem } from '@/hooks/useLotteryState'
+import { useTranslation } from 'react-i18next'
 
 interface InputModeSectionProps {
   inputMode: 'keyboard' | 'grid'
   setInputMode: (mode: 'keyboard' | 'grid') => void
-  selectedBetType: string
+  selectedBetTypes: string[]
   numberInput: string
   setNumberInput: (input: string) => void
   onAddNumber: (number: string) => void
@@ -20,7 +21,7 @@ interface InputModeSectionProps {
 const InputModeSection: React.FC<InputModeSectionProps> = ({
   inputMode,
   setInputMode,
-  selectedBetType,
+  selectedBetTypes,
   numberInput,
   setNumberInput,
   onAddNumber,
@@ -28,7 +29,9 @@ const InputModeSection: React.FC<InputModeSectionProps> = ({
   searchQuery,
   setSearchQuery
 }) => {
-  const currentConfig = BET_TYPES[selectedBetType]
+  const { t } = useTranslation()
+  // Use first selected bet type for config (all selected should have same digit count)
+  const currentConfig = selectedBetTypes.length > 0 ? BET_TYPES[selectedBetTypes[0]] : BET_TYPES['teng_bon_3']
 
   return (
     <div className="backdrop-blur-md bg-white/10 rounded-2xl border-2 border-white/20 shadow-2xl overflow-hidden">
@@ -76,7 +79,7 @@ const InputModeSection: React.FC<InputModeSectionProps> = ({
             <GridMode
               key="grid"
               currentConfig={currentConfig}
-              selectedBetType={selectedBetType}
+              selectedBetTypes={selectedBetTypes}
               cart={cart}
               onAddNumber={onAddNumber}
               searchQuery={searchQuery}
@@ -107,7 +110,14 @@ const KeyboardMode: React.FC<KeyboardModeProps> = ({
 }) => {
   const handleNumberClick = (digit: string) => {
     if (numberInput.length < currentConfig.digitCount) {
-      setNumberInput(numberInput + digit)
+      const newInput = numberInput + digit
+      setNumberInput(newInput)
+
+      // Auto-add to cart when reaching required digit count
+      if (newInput.length === currentConfig.digitCount) {
+        onAddNumber(newInput)
+        setNumberInput('')
+      }
     }
   }
 
@@ -146,66 +156,91 @@ const KeyboardMode: React.FC<KeyboardModeProps> = ({
         </div>
       </div>
 
-      {/* Numpad */}
-      <div className="grid grid-cols-4 gap-3">
-        {[1, 2, 3, 'back', 4, 5, 6, 'clear', 7, 8, 9, 'add', '', 0, '', ''].map((btn, idx) => {
-          if (btn === '') return <div key={idx}></div>
-
-          if (btn === 'back') {
-            return (
-              <motion.button
-                key={btn}
-                onClick={handleBackspace}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-red-600 hover:bg-red-700 text-white rounded-xl p-6 font-bold text-lg transition-all transform shadow-lg"
-              >
-                <FiX className="text-2xl mx-auto" />
-              </motion.button>
-            )
-          }
-
-          if (btn === 'clear') {
-            return (
-              <motion.button
-                key={btn}
-                onClick={handleClear}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gray-600 hover:bg-gray-700 text-white rounded-xl p-6 font-bold text-sm transition-all transform shadow-lg"
-              >
-                ล้าง
-              </motion.button>
-            )
-          }
-
-          if (btn === 'add') {
-            return (
-              <motion.button
-                key={btn}
-                onClick={handleAdd}
-                disabled={numberInput.length !== currentConfig.digitCount}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-xl p-6 font-bold text-lg transition-all transform shadow-lg disabled:opacity-50"
-              >
-                <FiCheck className="text-2xl mx-auto" />
-              </motion.button>
-            )
-          }
-
-          return (
+      {/* Number Pad (แผงตัวเลข) */}
+      <div className="space-y-3">
+        <div className="text-center text-white/70 text-sm font-semibold">
+          แผงตัวเลข
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {/* Row 1: 7, 8, 9 */}
+          {[7, 8, 9].map((num) => (
             <motion.button
-              key={btn}
-              onClick={() => handleNumberClick(btn.toString())}
+              key={num}
+              onClick={() => handleNumberClick(num.toString())}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-br from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl p-6 font-bold text-3xl transition-all transform shadow-lg"
             >
-              {btn}
+              {num}
             </motion.button>
-          )
-        })}
+          ))}
+
+          {/* Row 2: 4, 5, 6 */}
+          {[4, 5, 6].map((num) => (
+            <motion.button
+              key={num}
+              onClick={() => handleNumberClick(num.toString())}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-br from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl p-6 font-bold text-3xl transition-all transform shadow-lg"
+            >
+              {num}
+            </motion.button>
+          ))}
+
+          {/* Row 3: 1, 2, 3 */}
+          {[1, 2, 3].map((num) => (
+            <motion.button
+              key={num}
+              onClick={() => handleNumberClick(num.toString())}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-br from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl p-6 font-bold text-3xl transition-all transform shadow-lg"
+            >
+              {num}
+            </motion.button>
+          ))}
+
+          {/* Row 4: Clear, 0, Backspace */}
+          <motion.button
+            onClick={handleClear}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-br from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white rounded-xl p-6 font-bold text-base transition-all transform shadow-lg"
+          >
+            ล้าง
+          </motion.button>
+
+          <motion.button
+            onClick={() => handleNumberClick('0')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-br from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl p-6 font-bold text-3xl transition-all transform shadow-lg"
+          >
+            0
+          </motion.button>
+
+          <motion.button
+            onClick={handleBackspace}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-gradient-to-br from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-xl p-6 font-bold text-lg transition-all transform shadow-lg flex items-center justify-center"
+          >
+            <FiX className="text-2xl" />
+          </motion.button>
+        </div>
+
+        {/* Add Button - Full Width */}
+        <motion.button
+          onClick={handleAdd}
+          disabled={numberInput.length !== currentConfig.digitCount}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-xl p-6 font-bold text-xl transition-all transform shadow-lg disabled:opacity-50 flex items-center justify-center gap-2"
+        >
+          <FiCheck className="text-2xl" />
+          <span>เพิ่มลงตะกร้า</span>
+        </motion.button>
       </div>
     </motion.div>
   )
@@ -216,7 +251,7 @@ const KeyboardMode: React.FC<KeyboardModeProps> = ({
  */
 interface GridModeProps {
   currentConfig: typeof BET_TYPES[keyof typeof BET_TYPES]
-  selectedBetType: string
+  selectedBetTypes: string[]
   cart: CartItem[]
   onAddNumber: (number: string) => void
   searchQuery: string
@@ -225,7 +260,7 @@ interface GridModeProps {
 
 const GridMode: React.FC<GridModeProps> = ({
   currentConfig,
-  selectedBetType,
+  selectedBetTypes,
   cart,
   onAddNumber,
   searchQuery,
@@ -263,8 +298,11 @@ const GridMode: React.FC<GridModeProps> = ({
 
   const displayNumbers = getFilteredNumbers()
 
+  // Check if number is in cart for any of the selected bet types
   const isInCart = (number: string) => {
-    return cart.some(item => item.number === number && item.bet_type === selectedBetType)
+    return selectedBetTypes.every(betType =>
+      cart.some(item => item.number === number && item.bet_type === betType)
+    )
   }
 
   return (

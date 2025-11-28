@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 const API_BASE_PATH = import.meta.env.VITE_API_BASE_PATH || '/api/v1'
 
 // Member API Client
@@ -64,26 +64,25 @@ export interface AvailableLottery {
 
 export interface OpenPeriod {
   id: string
-  name: string
+  name?: string
   round?: string
+  lotteryId: number
+  huayCode: string
+  huayName: string
+  huayGroup: number
+  periodName: string
+  periodDate: string
+  openTime: string
   closeTime: string
   resultTime: string
-  huayCode: string
-  icon?: string
-  // Legacy fields for backward compatibility
-  lotteryId?: number
-  huayName?: string
-  huayGroup?: number
-  periodName?: string
-  periodDate?: string
-  openTime?: string
   drawTime?: string
-  status?: 'OPEN'
-  totalBetAmount?: number
-  totalPayoutAmount?: number
-  totalProfit?: number
-  createdAt?: string
-  updatedAt?: string
+  icon?: string
+  status: 'OPEN'
+  totalBetAmount: number
+  totalPayoutAmount: number
+  totalProfit: number
+  createdAt: string
+  updatedAt: string
 }
 
 export interface LotteryRate {
@@ -94,6 +93,21 @@ export interface LotteryRate {
   max_bet: number
   max_per_number: number
   is_active: boolean
+}
+
+export interface HuayConfig {
+  id: number
+  huayId: number
+  huayType: string
+  optionType: string
+  minPrice: number
+  maxPrice: number
+  multiply: number
+  status: number
+  default: number
+  maxPricePerNum: number
+  maxPricePerUser: number
+  typeConfig: number
 }
 
 export interface PlaceBetRequest {
@@ -155,6 +169,47 @@ export interface MyBet {
   cancelled_at?: string
 }
 
+// Saved Poy Template Interfaces
+export interface SavedPoyItem {
+  id: string
+  templateId: string
+  betType: string
+  number: string
+  amount: number
+  createdAt: string
+}
+
+export interface SavedPoyTemplate {
+  id: string
+  memberId: string
+  name: string
+  description?: string
+  totalItems: number
+  createdAt: string
+  updatedAt: string
+  items?: SavedPoyItem[]
+}
+
+export interface CreateTemplateRequest {
+  name: string
+  description?: string
+  items: {
+    betType: string
+    number: string
+    amount: number
+  }[]
+}
+
+export interface UpdateTemplateRequest {
+  name: string
+  description?: string
+  items: {
+    betType: string
+    number: string
+    amount: number
+  }[]
+}
+
 // ============================================
 // Member Lottery API
 // ============================================
@@ -180,17 +235,26 @@ export const memberLotteryAPI = {
     const lotteries = response.data.data || []
     return lotteries.map((lottery: any) => ({
       id: String(lottery.id),
-      name: lottery.name,
+      name: lottery.name || lottery.stockName,
       round: lottery.round,
-      closeTime: lottery.closeTime,
-      resultTime: lottery.resultTime,
+      closeTime: lottery.closeTime || lottery.dateClose,
+      resultTime: lottery.resultTime || lottery.stockTime,
       huayCode: lottery.huayCode,
       icon: lottery.icon,
       // Add computed fields for backward compatibility
-      huayName: lottery.name,
-      periodName: lottery.round || lottery.name,
-      drawTime: lottery.resultTime,
-      status: 'OPEN' as const
+      huayName: lottery.name || lottery.stockName,
+      periodName: lottery.round || lottery.name || new Date(lottery.stockTime || lottery.closeTime).toLocaleDateString('th-TH'),
+      periodDate: lottery.stockTime || lottery.closeTime,
+      drawTime: lottery.resultTime || lottery.stockTime,
+      openTime: lottery.dateBuy || lottery.openTime,
+      status: 'OPEN' as const,
+      lotteryId: lottery.id || 0,
+      huayGroup: lottery.stockType || 0,
+      totalBetAmount: 0,
+      totalPayoutAmount: 0,
+      totalProfit: 0,
+      createdAt: lottery.dateBuy || '',
+      updatedAt: lottery.dateBuy || ''
     }))
   },
 
@@ -198,6 +262,20 @@ export const memberLotteryAPI = {
   getLotteryRates: async (lotteryCode: string): Promise<LotteryRate[]> => {
     const response = await memberAPIClient.get(`/lottery/${lotteryCode}/rates`)
     return response.data.data
+  },
+
+  // Get lottery rules/detail
+  getLotteryRules: async (lotteryCode: string): Promise<{ huayCode: string; huayName: string; detail: string }> => {
+    const response = await memberAPIClient.get(`/lottery/${lotteryCode}/rules`)
+    return response.data.data
+  },
+
+  // Get huay config by lottery ID (default configs only)
+  getHuayConfig: async (lotteryId: number, type: number = 1): Promise<HuayConfig[]> => {
+    const response = await memberAPIClient.get(`/lottery/${lotteryId}/huay-config`, {
+      params: { type }
+    })
+    return response.data.data || []
   },
 
   // Place single bet
@@ -232,26 +310,59 @@ export const memberLotteryAPI = {
     return response.data.data
   },
 
-  // Get poy history (lottery slips with items)
+  // Get poy history
   getPoyHistory: async (params?: {
-    stockId?: number
     limit?: number
     offset?: number
   }): Promise<any[]> => {
     const response = await memberAPIClient.get('/lottery/history', { params })
-    return response.data.data || []
+    return response.data.data.poys || []
   },
 
-  // Cancel poy (within 30 minutes)
+  // Cancel poy
   cancelPoy: async (poyId: string): Promise<{ message: string }> => {
     const response = await memberAPIClient.post(`/lottery/poy/${poyId}/cancel`)
-    return response.data
+    return response.data.data
   },
 
-  // Get poy detail with items and results
+  // Get poy detail
   getPoyDetail: async (poyId: string): Promise<any> => {
     const response = await memberAPIClient.get(`/lottery/poy/${poyId}`)
     return response.data.data
+  },
+
+  // ============================================
+  // Saved Poy Templates
+  // ============================================
+
+  // Get all saved templates
+  getSavedTemplates: async (): Promise<SavedPoyTemplate[]> => {
+    const response = await memberAPIClient.get('/lottery/templates')
+    return response.data.data || []
+  },
+
+  // Get single template with items
+  getSavedTemplate: async (id: string): Promise<SavedPoyTemplate> => {
+    const response = await memberAPIClient.get(`/lottery/templates/${id}`)
+    return response.data.data
+  },
+
+  // Create new template
+  createSavedTemplate: async (data: CreateTemplateRequest): Promise<SavedPoyTemplate> => {
+    const response = await memberAPIClient.post('/lottery/templates', data)
+    return response.data.data
+  },
+
+  // Update template
+  updateSavedTemplate: async (id: string, data: UpdateTemplateRequest): Promise<SavedPoyTemplate> => {
+    const response = await memberAPIClient.put(`/lottery/templates/${id}`, data)
+    return response.data.data
+  },
+
+  // Delete template
+  deleteSavedTemplate: async (id: string): Promise<{ message: string }> => {
+    const response = await memberAPIClient.delete(`/lottery/templates/${id}`)
+    return response.data
   },
 }
 

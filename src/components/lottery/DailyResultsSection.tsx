@@ -3,12 +3,14 @@ import { adminLotteryDailyAPI, DailyLotteryItem } from '@api/adminLotteryDailyAP
 import toast from 'react-hot-toast'
 import { FiClock, FiCheckCircle, FiAlertCircle } from 'react-icons/fi'
 import { FaTrophy } from 'react-icons/fa'
+import { useTranslation } from 'react-i18next'
 
 interface DailyResultsSectionProps {
   date?: string
 }
 
 const DailyResultsSection: React.FC<DailyResultsSectionProps> = ({ date }) => {
+  const { t } = useTranslation()
   const [results, setResults] = useState<DailyLotteryItem[]>([])
   const [gloResult, setGloResult] = useState<DailyLotteryItem | null>(null)
   const [loading, setLoading] = useState(false)
@@ -68,7 +70,7 @@ const DailyResultsSection: React.FC<DailyResultsSectionProps> = ({ date }) => {
     } else if (lottery.status === 1) {
       return { text: 'เปิดแทง', color: 'text-blue-600', icon: FiCheckCircle }
     } else {
-      return { text: 'ยกเลิก', color: 'text-red-600', icon: FiAlertCircle }
+      return { text: t("common:buttons.cancel"), color: 'text-red-600', icon: FiAlertCircle }
     }
   }
 
@@ -142,7 +144,7 @@ const DailyResultsSection: React.FC<DailyResultsSectionProps> = ({ date }) => {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">หวย</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">{t("navigation:menu.lottery")}</th>
                 <th className="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">เวลาปิด</th>
                 <th className="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">สถานะ</th>
                 <th className="px-4 py-3 text-center text-xs font-semibold text-gray-600 uppercase">3 ตัวบน</th>
