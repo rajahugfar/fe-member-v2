@@ -73,8 +73,9 @@ const LotteryBetting: React.FC = () => {
   const lotteryState = useLotteryState(periodId)
 
   const {
-    selectedBetType,
-    setSelectedBetType,
+    selectedBetTypes,
+    toggleBetType,
+    setSelectedBetTypes,
     inputMode,
     setInputMode,
     numberInput,
@@ -97,7 +98,7 @@ const LotteryBetting: React.FC = () => {
   } = lotteryState
 
   // Get current bet type config (use first selected for keyboard input)
-  const currentConfig = selectedBetType ? BET_TYPES[selectedBetType] : BET_TYPES['teng_bon_3']
+  const currentConfig = selectedBetTypes.length > 0 ? BET_TYPES[selectedBetTypes[0]] : BET_TYPES['teng_bon_3']
 
   // Physical Keyboard Support
   useKeyboardInput({
@@ -175,7 +176,7 @@ const LotteryBetting: React.FC = () => {
       // Set default bet type to teng_bon_3 (3ตัวบน) if available, otherwise use first available
       if (ratesData && ratesData.length > 0) {
         const preferredBetType = ratesData.find(r => r.bet_type === 'teng_bon_3')
-        setSelectedBetType(preferredBetType ? 'teng_bon_3' : ratesData[0].bet_type)
+        setSelectedBetTypes([preferredBetType ? 'teng_bon_3' : ratesData[0].bet_type])
       }
     } catch (error) {
       console.error('Load error:', error)
@@ -267,54 +268,62 @@ const LotteryBetting: React.FC = () => {
   async function handleAddNumber(number: string) {
     if (!number) return
 
-    if (!selectedBetType) {
+    if (selectedBetTypes.length === 0) {
       toast.error(t('lottery:messages.selectBetType'))
       return
     }
 
-    // Add for selected bet type
-    const rate = rates.find(r => r.bet_type === selectedBetType)
-    if (!rate) {
-      toast.error(t('lottery:messages.invalidBetType'))
-      return
+    let totalAdded = 0
+
+    // Add for all selected bet types
+    for (const betType of selectedBetTypes) {
+      const rate = rates.find(r => r.bet_type === betType)
+      if (!rate) continue
+
+      // Check duplicate
+      if (checkDuplicate(number, betType, cart)) continue
+
+      const added = await addNumberForBetType(number, betType)
+      totalAdded += added
     }
 
-    // Check duplicate
-    if (checkDuplicate(number, selectedBetType, cart)) {
-      toast.error(t('lottery:messages.alreadyInCart'))
-      return
-    }
-
-    const added = await addNumberForBetType(number, selectedBetType)
-    if (added > 0) {
+    if (totalAdded > 1) {
+      toast.success(t('lottery:messages.addedToCart', { count: totalAdded }))
+    } else if (totalAdded === 1) {
       toast.success(t('lottery:messages.addedSingleToCart', { number }))
+    } else {
+      toast.error(t('lottery:messages.alreadyInCart'))
     }
   }
 
   // Handle Add Multiple Numbers (from special options)
   const handleAddNumbers = (numbers: string[]) => {
-    if (!selectedBetType) return
+    if (selectedBetTypes.length === 0) return
 
     let addedCount = 0
-    const rate = rates.find(r => r.bet_type === selectedBetType)
-    if (!rate) return
 
-    const config = BET_TYPES[selectedBetType]
-    if (!config) return
+    // Add for all selected bet types
+    for (const betType of selectedBetTypes) {
+      const rate = rates.find(r => r.bet_type === betType)
+      if (!rate) continue
 
-    numbers.forEach(number => {
-      if (!checkDuplicate(number, selectedBetType, cart)) {
-        addToCart({
-          bet_type: selectedBetType,
-          bet_type_label: config.label,
-          number,
-          amount: 0,
-          payout_rate: rate.multiply,
-          huayName: period?.huayName
-        })
-        addedCount++
-      }
-    })
+      const config = BET_TYPES[betType]
+      if (!config) continue
+
+      numbers.forEach(number => {
+        if (!checkDuplicate(number, betType, cart)) {
+          addToCart({
+            bet_type: betType,
+            bet_type_label: config.label,
+            number,
+            amount: 0,
+            payout_rate: rate.multiply,
+            huayName: period?.huayName
+          })
+          addedCount++
+        }
+      })
+    }
 
     if (addedCount > 0) {
       toast.success(t('lottery:messages.addedNumbersToCart', { count: addedCount }))
@@ -644,14 +653,14 @@ const LotteryBetting: React.FC = () => {
           <div className="lg:col-span-8 space-y-3">
             {/* Bet Type Selector */}
             <BetTypeSelector
-              selectedBetType={selectedBetType}
-              onToggle={setSelectedBetType}
+              selectedBetTypes={selectedBetTypes}
+              onToggle={toggleBetType}
               rates={rates}
             />
 
             {/* Special Number Options */}
             <SpecialNumberOptions
-              selectedBetType={selectedBetType}
+              selectedBetTypes={selectedBetTypes}
               onAddNumbers={handleAddNumbers}
               shuffleEnabled={shuffleEnabled}
               setShuffleEnabled={setShuffleEnabled}
@@ -661,7 +670,7 @@ const LotteryBetting: React.FC = () => {
             <InputModeSection
               inputMode={inputMode}
               setInputMode={setInputMode}
-              selectedBetType={selectedBetType}
+              selectedBetTypes={selectedBetTypes}
               numberInput={numberInput}
               setNumberInput={setNumberInput}
               onAddNumber={handleAddNumber}
