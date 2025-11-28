@@ -179,5 +179,26 @@
     "todayTab": "ซื้อวันนี้",
     "pendingTab": "รอผลออก",
     "completedTab": "ออกผลแล้ว"
+  },
+  "poyDetail": {
+    "title": "รายละเอียดโพยหวย",
+    "poyNumber": "เลขที่โพย",
+    "totalBet": "ยอดแทง",
+    "winLoss": "ชนะ/แพ้",
+    "resultNumbers": "ผลรางวัล",
+    "allBets": "รายการแทงทั้งหมด",
+    "items": "รายการ",
+    "payout": "จ่าย",
+    "betAmount": "แทง",
+    "poyNotFound": "ไม่พบโพยนี้",
+    "loadPoyDetailFailed": "ไม่สามารถโหลดรายละเอียดโพยได้"
+  },
+  "status": {
+    "cancelled": "ยกเลิกแล้ว",
+    "pending": "รอออกผล",
+    "resulted": "ออกผลแล้ว",
+    "notWin": "ไม่ถูกรางวัล",
+    "waitingResult": "รอออกผล",
+    "unknown": "ไม่ทราบสถานะ"
   }
 }
