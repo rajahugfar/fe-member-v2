@@ -237,16 +237,6 @@ function App() {
         <Route path="/member/register" element={<RegisterPage />} />
         <Route path="/member/forgot-password" element={<MemberForgotPassword />} />
 
-        {/* Member Index (Standalone - no layout) */}
-        <Route
-          path="/member"
-          element={
-            <MemberProtectedRoute>
-              <MemberIndex />
-            </MemberProtectedRoute>
-          }
-        />
-
         {/* Member Protected Routes with Layout */}
         <Route
           element={
@@ -255,6 +245,7 @@ function App() {
             </MemberProtectedRoute>
           }
         >
+          <Route path="/member" element={<MemberIndex />} />
           <Route path="/member/dashboard" element={<MemberDashboard />} />
           <Route path="/member/profile" element={<MemberProfile />} />
           <Route path="/member/deposit" element={<MemberDeposit />} />

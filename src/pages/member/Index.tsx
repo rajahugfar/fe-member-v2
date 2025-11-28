@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
-  FaUser,
-  FaLine,
-  FaSignOutAlt,
   FaTrophy,
 } from 'react-icons/fa'
 import { profileAPI } from '@api/memberAPI'
@@ -14,8 +11,7 @@ import { toast } from 'react-hot-toast'
 import MemberChat from '@/components/chat/MemberChat'
 
 const MemberIndex = () => {
-  const navigate = useNavigate()
-  const { logout, member } = useMemberStore()
+  const { member } = useMemberStore()
   const [profile, setProfile] = useState<any>(null)
   const [, setLoading] = useState(true)
   const [providers, setProviders] = useState<GameProvider[]>([])
@@ -80,19 +76,6 @@ const MemberIndex = () => {
     }
   }
 
-  const handleLogout = () => {
-    logout()
-    navigate('/member/login')
-    toast.success('ออกจากระบบสำเร็จ')
-  }
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('th-TH', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(amount)
-  }
-
   // Action buttons configuration
   const actionButtons = [
     {
@@ -143,41 +126,6 @@ const MemberIndex = () => {
         <div className="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
       </div>
-
-      {/* Header */}
-      <header className="relative z-20 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 border-b-4 border-yellow-400 shadow-2xl">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link to="/member" className="flex items-center space-x-3">
-              <img src="/images/logo.webp" alt="Logo" className="h-12 w-auto" />
-              <span className="text-2xl font-black text-white drop-shadow-lg">PERMCHOK</span>
-            </Link>
-
-            {/* User Info & Actions */}
-            {profile && (
-              <div className="flex items-center space-x-4">
-                <div className="hidden md:flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
-                  <FaUser className="text-white text-xl" />
-                  <div>
-                    <div className="text-white font-bold text-sm">{profile.phone}</div>
-                    <div className="text-yellow-200 text-xs font-semibold">
-                      ฿{formatCurrency(profile.credit || 0)}
-                    </div>
-                  </div>
-                </div>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center space-x-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  <FaSignOutAlt />
-                  <span className="hidden md:inline">ออกจากระบบ</span>
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
 
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 py-6">
