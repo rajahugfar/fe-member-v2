@@ -4,7 +4,7 @@ import type { LoginCredentials, RegisterData, AuthResponse, RefreshTokenResponse
 export const authAPI = {
   // Login
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    const response = await apiClient.post('/member/login', credentials)
+    const response = await apiClient.post('/member/auth/login', credentials)
     const { accessToken, refreshToken, member } = response.data.data
     return {
       user: member,
@@ -15,7 +15,7 @@ export const authAPI = {
 
   // Register
   register: async (data: RegisterData): Promise<AuthResponse> => {
-    const response = await apiClient.post('/member/register', data)
+    const response = await apiClient.post('/member/auth/register', data)
     const { accessToken, refreshToken, member } = response.data.data
     return {
       user: member,
