@@ -5,7 +5,6 @@ import { FaCheckCircle } from 'react-icons/fa'
 import html2canvas from 'html2canvas'
 import { CartItem } from '@/hooks/useLotteryState'
 import { formatNumber } from '@/utils/lotteryHelpers'
-import { useTranslation } from 'react-i18next'
 
 /**
  * Bulk Price Modal
@@ -22,7 +21,6 @@ export const BulkPriceModal: React.FC<BulkPriceModalProps> = ({
   onClose,
   onApply
 }) => {
-  const { t } = useTranslation()
   const [price, setPrice] = useState('')
 
   const handleApply = () => {

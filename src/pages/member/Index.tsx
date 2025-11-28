@@ -3,13 +3,10 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaTrophy, FaLine } from 'react-icons/fa'
 import { gameProviderAPI, type GameProvider } from '@api/gameProviderAPI'
-import { useMemberStore } from '@store/memberStore'
 import { toast } from 'react-hot-toast'
 import MemberChat from '@/components/chat/MemberChat'
 
 const MemberIndex = () => {
-  const { member } = useMemberStore()
-  const [profile] = useState<any>(null)
   const [, setLoading] = useState(true)
   const [providers, setProviders] = useState<GameProvider[]>([])
   const [activeTab, setActiveTab] = useState<string>('Slot') // Default to Slot category

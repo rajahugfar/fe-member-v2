@@ -43,7 +43,6 @@ export const SavedTemplatesModal = ({
   const [showSaveForm, setShowSaveForm] = useState(false)
   const [newTemplateName, setNewTemplateName] = useState('')
   const [newTemplateDesc, setNewTemplateDesc] = useState('')
-  const [expandedTemplate, setExpandedTemplate] = useState<SavedPoyTemplate | null>(null)
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -132,7 +131,6 @@ export const SavedTemplatesModal = ({
     try {
       await memberLotteryAPI.deleteSavedTemplate(templateId)
       await fetchTemplates()
-      setExpandedTemplate(null)
     } catch (err) {
       setError('ไม่สามารถลบโพยได้')
       console.error(err)

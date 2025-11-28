@@ -8,9 +8,9 @@ import { toast } from 'react-hot-toast'
 import { FiClock, FiX, FiShoppingCart, FiArrowLeft } from 'react-icons/fi'
 import { FaCoins, FaMoneyBillWave } from 'react-icons/fa'
 import { useLotteryState } from '@/hooks/useLotteryState'
+import { useKeyboardInput } from '@/hooks/useKeyboardInput'
 import { reloadCredit } from '@/utils/creditHelpers'
 import { useAuthStore } from '@store/authStore'
-import { useMemberStore } from '@store/memberStore'
 import {
   BET_TYPES,
   checkDuplicate,
@@ -36,7 +36,6 @@ const LotteryBetting: React.FC = () => {
   const { t } = useTranslation()
   const { periodId } = useParams<{ periodId: string }>()
   const navigate = useNavigate()
-  const { logout } = useMemberStore()
   const { refreshUser } = useAuthStore()
 
   // Data States
