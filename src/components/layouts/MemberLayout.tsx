@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate, Link } from 'react-router-dom'
 import { FaLine, FaTrophy } from 'react-icons/fa'
 import { useMemberStore } from '@store/memberStore'
 import toast from 'react-hot-toast'
