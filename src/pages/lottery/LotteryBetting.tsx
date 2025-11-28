@@ -6,7 +6,6 @@ import { memberLotteryResultsAPI, LotteryResultItem } from '@api/memberLotteryRe
 import { memberLotteryCheckAPI } from '@api/memberLotteryCheckAPI'
 import { toast } from 'react-hot-toast'
 import { FiClock, FiX, FiShoppingCart, FiArrowLeft } from 'react-icons/fi'
-import { FaCoins, FaMoneyBillWave } from 'react-icons/fa'
 import { useLotteryState } from '@/hooks/useLotteryState'
 import { useKeyboardInput } from '@/hooks/useKeyboardInput'
 import { reloadCredit } from '@/utils/creditHelpers'
