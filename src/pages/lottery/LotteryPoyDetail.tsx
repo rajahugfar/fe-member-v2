@@ -311,12 +311,12 @@ const LotteryPoyDetail: React.FC = () => {
           >
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
               <span>📋</span>
-              {t('lottery:poyDetail.allBets')} ({poy.items.length} {t('lottery:poyDetail.items')})
+              {t('lottery:poyDetail.allBets')} ({poy.items?.length || 0} {t('lottery:poyDetail.items')})
             </h2>
 
             {/* Grid 3 columns */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-              {poy.items.map((item, index) => {
+              {poy.items?.map((item, index) => {
                 const status = getItemStatus(item, poy.status)
                 const payout = item.price * item.multiply
 
