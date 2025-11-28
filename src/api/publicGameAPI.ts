@@ -97,9 +97,9 @@ export const publicGameAPI = {
 
   // Get AMB games by provider
   getAmbGamesByProvider: async (provider: string): Promise<GameListResponse> => {
-    // Convert provider name to uppercase for AMB productId
-    const productId = provider.toUpperCase()
-    const response = await publicClient.get(`/member/games/amb/${productId}`)
+    // Use provider code as-is (already in correct format like 5G_GAMES)
+    const productCode = provider
+    const response = await publicClient.get(`/member/games/amb/${productCode}`)
     // AMB API returns { data: { games: [...], productId: "..." } }
     // Transform AMB game format to match our Game interface
     const ambData = response.data.data
@@ -110,7 +110,7 @@ export const publicGameAPI = {
         gameCode: game.code,
         gameName: game.name,
         gameType: game.type,
-        provider: provider,
+        provider: productCode, // Use productCode to ensure correct format
         imageUrl: game.img,
         thumbnailUrl: game.img,
         isActive: true,
@@ -123,8 +123,11 @@ export const publicGameAPI = {
       // Debug first game only
       if (game.rank === 1) {
         console.log('🎮 AMB Game Transform:', {
+          original_code: game.code,
           original_img: game.img,
+          transformed_gameCode: transformed.gameCode,
           transformed_imageUrl: transformed.imageUrl,
+          transformed_provider: transformed.provider,
           gameName: transformed.gameName
         })
       }
