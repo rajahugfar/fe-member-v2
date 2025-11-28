@@ -132,8 +132,8 @@ const GameLobby: React.FC = () => {
 
   // Filter games
   const filteredGames = games.filter(game => {
-    const matchesSearch = !filters.search || (game.name || '').toLowerCase().includes(filters.search.toLowerCase())
-    const matchesType = !filters.type || game.type === filters.type
+    const matchesSearch = !filters.search || (game.gameName || '').toLowerCase().includes(filters.search.toLowerCase())
+    const matchesType = !filters.type || game.gameType === filters.type
     return matchesSearch && matchesType
   })
 
@@ -274,7 +274,7 @@ const GameLobby: React.FC = () => {
             <div className={`grid ${getGridColumns()} gap-4`}>
               {filteredGames.map((game, index) => (
                 <motion.div
-                  key={game.code}
+                  key={game.gameCode}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: index * 0.02 }}
@@ -285,7 +285,7 @@ const GameLobby: React.FC = () => {
                     <div className="relative aspect-square rounded-lg overflow-hidden bg-gray-800">
                       <img
                         src={game.imageUrl || 'https://via.placeholder.com/300x300?text=Game'}
-                        alt={game.name}
+                        alt={game.gameName}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
 
@@ -305,7 +305,7 @@ const GameLobby: React.FC = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-20 flex items-end justify-center pb-4 gap-2">
                         <button
                           type="button"
-                          onClick={() => handlePlayGame(game.code, game.name)}
+                          onClick={() => handlePlayGame(game.gameCode, game.gameName)}
                           className="px-4 py-2 bg-gradient-to-r from-yellow-600 to-orange-600 text-white rounded-lg font-bold hover:from-yellow-500 hover:to-orange-500 transition-all flex items-center gap-2 shadow-lg border-2 border-yellow-400"
                         >
                           <FiPlay size={16} />
@@ -326,7 +326,7 @@ const GameLobby: React.FC = () => {
 
                   {/* Game Info */}
                   <div className="mt-2">
-                    <p className="text-white font-bold text-sm truncate uppercase">{game.name}</p>
+                    <p className="text-white font-bold text-sm truncate uppercase">{game.gameName}</p>
                     <p className="text-yellow-400 text-xs">{game.provider}</p>
                   </div>
                 </motion.div>

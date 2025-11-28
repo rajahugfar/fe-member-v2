@@ -100,6 +100,29 @@ export const publicGameAPI = {
     // Convert provider name to uppercase for AMB productId
     const productId = provider.toUpperCase()
     const response = await publicClient.get(`/member/games/amb/${productId}`)
-    return response.data.data
+    // AMB API returns { data: { games: [...], productId: "..." } }
+    // Transform AMB game format to match our Game interface
+    const ambData = response.data.data
+    const transformedGames = (ambData.games || []).map((game: any) => ({
+      id: game.code,
+      gameCode: game.code,
+      gameName: game.name,
+      gameType: game.type,
+      provider: provider,
+      imageUrl: game.img,
+      thumbnailUrl: game.img,
+      isActive: true,
+      isFeatured: false,
+      displayOrder: game.rank,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    }))
+
+    return {
+      games: transformedGames,
+      total: transformedGames.length,
+      limit: transformedGames.length,
+      offset: 0
+    }
   },
 }
