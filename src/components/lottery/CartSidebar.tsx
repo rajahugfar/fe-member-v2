@@ -182,7 +182,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
                           {item.isSpecialNumber && (
                             <div className="mt-0.5">
                               <span className="inline-block bg-purple-600 text-white text-[8px] px-1 py-0.5 rounded font-bold">
-                                เลขพิเศษ
+                                หวยอั๋น
                               </span>
                             </div>
                           )}
