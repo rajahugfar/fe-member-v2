@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { memberLotteryResultsAPI, LotteryResultItem } from '@api/memberLotteryResultsAPI'
 import toast from 'react-hot-toast'
-import { FiRefreshCw, FiCalendar, FiAward } from 'react-icons/fi'
+import { FiRefreshCw, FiCalendar, FiAward, FiArrowLeft } from 'react-icons/fi'
 
 const LotteryResults: React.FC = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [results, setResults] = useState<LotteryResultItem[]>([])
   const [loading, setLoading] = useState(false)
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0])
@@ -91,6 +93,13 @@ const LotteryResults: React.FC = () => {
             </div>
           </div>
           <div className="flex gap-3">
+            <button
+              onClick={() => navigate('/member/lottery')}
+              className="flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 font-semibold rounded-xl hover:bg-white/20 transition-all shadow-lg hover:shadow-xl"
+            >
+              <FiArrowLeft />
+              {t('lottery:actions.backToBet')}
+            </button>
             <div className="relative">
               <FiCalendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700 z-10" />
               <input

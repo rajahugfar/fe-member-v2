@@ -79,6 +79,7 @@
   },
   "actions": {
     "backToLottery": "กลับไปเลือกหวย",
+    "backToBet": "กลับไปแทงหวย",
     "savedTemplates": "โพยที่บันทึกไว้",
     "rules": "กติกา",
     "closingAt": "ปิดรับ",

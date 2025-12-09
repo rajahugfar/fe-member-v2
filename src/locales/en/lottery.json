@@ -79,6 +79,7 @@
   },
   "actions": {
     "backToLottery": "Back to Lottery",
+    "backToBet": "Back to Betting",
     "savedTemplates": "Saved Templates",
     "rules": "Rules",
     "closingAt": "Closing",
