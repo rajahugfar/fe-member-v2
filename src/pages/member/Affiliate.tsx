@@ -146,8 +146,11 @@ const Affiliate: React.FC = () => {
           `${API_BASE_URL}/api/v1/member/referral/commissions?limit=999999`,
           { headers: getAuthHeaders() }
         )
+        console.log('📦 Commission API Response:', historyRes.data)
         if (historyRes.data.success) {
-          setCommissionHistory(historyRes.data.data.commissions || [])
+          const commissions = historyRes.data.data.commissions || []
+          console.log('📊 Loaded commissions:', commissions.length, commissions.slice(0, 5))
+          setCommissionHistory(commissions)
         }
       } catch (e) {
         // Commission history is optional
@@ -178,15 +181,25 @@ const Affiliate: React.FC = () => {
     const year = selectedMonth.getFullYear()
     const month = selectedMonth.getMonth()
 
-    return commissionHistory.filter(c => {
+    const filtered = commissionHistory.filter(c => {
       const date = new Date(c.createdAt)
       return date.getFullYear() === year && date.getMonth() === month
     })
+
+    console.log(`📊 Revenue for ${year}-${month + 1}:`, {
+      total: commissionHistory.length,
+      filtered: filtered.length,
+      dates: filtered.map(c => new Date(c.createdAt).toISOString().split('T')[0])
+    })
+
+    return filtered
   }
 
   const getDailyRevenue = () => {
     const monthly = getMonthlyRevenue()
     const dailyMap = new Map<string, { total: number, count: number }>()
+
+    console.log('📊 getDailyRevenue - monthly data:', monthly.length, monthly.slice(0, 5))
 
     monthly.forEach(c => {
       const date = new Date(c.createdAt).toISOString().split('T')[0]
@@ -197,9 +210,13 @@ const Affiliate: React.FC = () => {
       })
     })
 
-    return Array.from(dailyMap.entries())
+    const result = Array.from(dailyMap.entries())
       .map(([date, data]) => ({ date, ...data }))
       .sort((a, b) => b.date.localeCompare(a.date))
+
+    console.log('📊 getDailyRevenue - result:', result)
+
+    return result
   }
 
   const changeMonth = (delta: number) => {
