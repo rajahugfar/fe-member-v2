@@ -142,31 +142,16 @@ const Affiliate: React.FC = () => {
 
       // Load commission history - fetch all without limit
       try {
-        // Fetch all commission pages
-        let allCommissions: any[] = []
-        let page = 1
-        let hasMore = true
+        const historyRes = await axios.get(
+          `${API_BASE_URL}/api/v1/member/referral/commissions?page=1&limit=999999`,
+          { headers: getAuthHeaders() }
+        )
 
-        while (hasMore) {
-          const historyRes = await axios.get(
-            `${API_BASE_URL}/api/v1/member/referral/commissions?page=${page}&limit=100`,
-            { headers: getAuthHeaders() }
-          )
-
-          if (historyRes.data.success) {
-            const commissions = historyRes.data.data.commissions || []
-            allCommissions = [...allCommissions, ...commissions]
-
-            const pagination = historyRes.data.data.pagination
-            hasMore = page < pagination.totalPages
-            page++
-          } else {
-            hasMore = false
-          }
+        if (historyRes.data.success) {
+          const commissions = historyRes.data.data.commissions || []
+          console.log('📦 Total commissions loaded:', commissions.length)
+          setCommissionHistory(commissions)
         }
-
-        console.log('📦 Total commissions loaded:', allCommissions.length)
-        setCommissionHistory(allCommissions)
       } catch (e) {
         // Commission history is optional
         console.error('Load commission history error:', e)
