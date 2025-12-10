@@ -413,13 +413,35 @@ const LotteryBetting: React.FC = () => {
       // Success - Store cart data before clearing
       const currentTotalAmount = cart.reduce((sum, item) => sum + item.amount, 0)
       const currentTotalPotentialWin = cart.reduce((sum, item) => sum + item.potential_win, 0)
-      
+
       setSuccessPoyId(response.poyId || 'N/A')
       setSuccessNote(note)
       setSuccessCart([...cart]) // Store cart snapshot
       setSuccessTotalAmount(currentTotalAmount)
       setSuccessTotalPotentialWin(currentTotalPotentialWin)
       setShowSuccessModal(true)
+
+      // Auto-save template with lottery name, date, time, bet count, and amount
+      try {
+        const now = new Date()
+        const dateStr = now.toLocaleDateString('th-TH', { day: '2-digit', month: '2-digit', year: '2-digit' })
+        const timeStr = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })
+        const templateName = `${period?.huayName || 'หวย'} ${dateStr} ${timeStr} ${cart.length}ยอด ${currentTotalAmount}฿`
+
+        await memberLotteryAPI.createSavedTemplate({
+          name: templateName,
+          description: `บันทึกอัตโนมัติ - โพยเลขที่: ${response.poyId || 'N/A'}`,
+          items: cart.map(item => ({
+            betType: item.bet_type,
+            number: item.number,
+            amount: item.amount
+          }))
+        })
+      } catch (error) {
+        console.error('Failed to auto-save template:', error)
+        // Don't show error to user, just log it
+      }
+
       clearCart()
 
       // Reload credit across the app
