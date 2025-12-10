@@ -466,9 +466,10 @@ const LotteryBetting: React.FC = () => {
   }
 
   // Handle Load Template
-  const handleLoadTemplate = (items: { betType: string; number: string; amount: number }[]) => {
+  const handleLoadTemplate = async (items: { betType: string; number: string; amount: number }[]) => {
     let addedCount = 0
-    items.forEach(item => {
+
+    for (const item of items) {
       // หา config จาก BET_TYPES หรือสร้าง default
       const config = BET_TYPES[item.betType] || {
         id: item.betType,
@@ -477,22 +478,52 @@ const LotteryBetting: React.FC = () => {
       }
 
       const rate = rates.find(r => r.bet_type === item.betType)
-      // ใช้ rate ที่หาได้ หรือใช้ default multiply = 1
-      const multiply = rate?.multiply || 1
+      if (!rate) continue
 
       // เช็ค duplicate กับ cart ปัจจุบัน
       if (!checkDuplicate(item.number, item.betType, cart)) {
-        addToCart({
-          bet_type: item.betType,
-          bet_type_label: config.label,
-          number: item.number,
-          amount: item.amount,
-          payout_rate: multiply,
-          huayName: period?.huayName
-        })
-        addedCount++
+        try {
+          // Check multiply for this number
+          const checkResult = await memberLotteryCheckAPI.checkMultiply({
+            huayId: period?.lotteryId || 1,
+            stockType: period?.huayCode?.startsWith('g') ? 'g' : 's',
+            huayOption: item.betType,
+            poyNumber: item.number,
+            multiply: rate.multiply,
+            value: 1
+          })
+
+          // Use actual multiply from API
+          addToCart({
+            bet_type: item.betType,
+            bet_type_label: config.label,
+            number: item.number,
+            amount: item.amount,
+            payout_rate: checkResult.multiply,
+            huayName: period?.huayName,
+            isSpecialNumber: checkResult.isSpecialNumber,
+            soldAmount: checkResult.soldAmount,
+            remainingAmount: checkResult.remainingAmount,
+            maxSaleAmount: checkResult.maxSaleAmount,
+            checkResult: checkResult.result
+          })
+          addedCount++
+        } catch (error) {
+          console.error('Check multiply error:', error)
+          // Fallback to default rate if API fails
+          addToCart({
+            bet_type: item.betType,
+            bet_type_label: config.label,
+            number: item.number,
+            amount: item.amount,
+            payout_rate: rate.multiply,
+            huayName: period?.huayName
+          })
+          addedCount++
+        }
       }
-    })
+    }
+
     if (addedCount > 0) {
       toast.success(t('lottery:messages.loadedTemplate', { count: addedCount }))
     } else {
