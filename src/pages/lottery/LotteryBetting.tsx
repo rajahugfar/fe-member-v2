@@ -297,9 +297,9 @@ const LotteryBetting: React.FC = () => {
   const handleAddNumbers = async (numbers: string[]) => {
     if (selectedBetTypes.length === 0) return
 
-    let addedCount = 0
+    // Build list of items to add
+    const itemsToAdd: Array<{ betType: string; number: string; rate: any; config: any }> = []
 
-    // Add for all selected bet types
     for (const betType of selectedBetTypes) {
       const rate = rates.find(r => r.bet_type === betType)
       if (!rate) continue
@@ -307,10 +307,23 @@ const LotteryBetting: React.FC = () => {
       const config = BET_TYPES[betType]
       if (!config) continue
 
-      for (const number of numbers) {
+      numbers.forEach(number => {
         if (!checkDuplicate(number, betType, cart)) {
+          itemsToAdd.push({ betType, number, rate, config })
+        }
+      })
+    }
+
+    if (itemsToAdd.length === 0) return
+
+    // Show loading for large batches
+    const loadingToast = itemsToAdd.length > 10 ? toast.loading(`กำลังเพิ่ม ${itemsToAdd.length} รายการ...`) : null
+
+    try {
+      // Check multiply for all items in parallel
+      const results = await Promise.all(
+        itemsToAdd.map(async ({ betType, number, rate, config }) => {
           try {
-            // Check multiply for this number
             const checkResult = await memberLotteryCheckAPI.checkMultiply({
               huayId: period?.lotteryId || 1,
               stockType: period?.huayCode?.startsWith('g') ? 'g' : 's',
@@ -320,36 +333,50 @@ const LotteryBetting: React.FC = () => {
               value: 1
             })
 
-            // Use actual multiply from API
-            addToCart({
-              bet_type: betType,
-              bet_type_label: config.label,
-              number,
-              amount: rate.min_bet || 1,
-              payout_rate: checkResult.multiply,
-              huayName: period?.huayName,
-              isSpecialNumber: checkResult.isSpecialNumber,
-              soldAmount: checkResult.soldAmount,
-              remainingAmount: checkResult.remainingAmount,
-              maxSaleAmount: checkResult.maxSaleAmount,
-              checkResult: checkResult.result
-            })
-            addedCount++
-
-            // Show condition message if available
-            if (checkResult.codition && checkResult.result !== 1) {
-              toast(`${number}: ${checkResult.codition}`, { duration: 3000, icon: 'ℹ️' })
+            return {
+              item: {
+                bet_type: betType,
+                bet_type_label: config.label,
+                number,
+                amount: rate.min_bet || 1,
+                payout_rate: checkResult.multiply,
+                huayName: period?.huayName,
+                isSpecialNumber: checkResult.isSpecialNumber,
+                soldAmount: checkResult.soldAmount,
+                remainingAmount: checkResult.remainingAmount,
+                maxSaleAmount: checkResult.maxSaleAmount,
+                checkResult: checkResult.result
+              },
+              message: checkResult.codition && checkResult.result !== 1 ? `${number}: ${checkResult.codition}` : null
             }
           } catch (error) {
             console.error('Check multiply error:', error)
-            toast.error(t('lottery:errors.checkMultiplyFailed'))
+            return null
+          }
+        })
+      )
+
+      // Add all valid results to cart
+      let addedCount = 0
+      results.forEach(result => {
+        if (result) {
+          addToCart(result.item)
+          addedCount++
+          if (result.message) {
+            toast(result.message, { duration: 3000, icon: 'ℹ️' })
           }
         }
-      }
-    }
+      })
 
-    if (addedCount > 0) {
-      toast.success(t('lottery:messages.addedNumbersToCart', { count: addedCount }))
+      if (loadingToast) toast.dismiss(loadingToast)
+
+      if (addedCount > 0) {
+        toast.success(t('lottery:messages.addedNumbersToCart', { count: addedCount }))
+      }
+    } catch (error) {
+      if (loadingToast) toast.dismiss(loadingToast)
+      toast.error(t('lottery:errors.checkMultiplyFailed'))
+      console.error('Add numbers error:', error)
     }
   }
 
@@ -489,67 +516,85 @@ const LotteryBetting: React.FC = () => {
 
   // Handle Load Template
   const handleLoadTemplate = async (items: { betType: string; number: string; amount: number }[]) => {
-    let addedCount = 0
+    // Filter out duplicates first
+    const itemsToAdd = items.filter(item => !checkDuplicate(item.number, item.betType, cart))
 
-    for (const item of items) {
-      // หา config จาก BET_TYPES หรือสร้าง default
-      const config = BET_TYPES[item.betType] || {
-        id: item.betType,
-        label: item.betType,
-        digitCount: item.number.length
-      }
-
-      const rate = rates.find(r => r.bet_type === item.betType)
-      if (!rate) continue
-
-      // เช็ค duplicate กับ cart ปัจจุบัน
-      if (!checkDuplicate(item.number, item.betType, cart)) {
-        try {
-          // Check multiply for this number
-          const checkResult = await memberLotteryCheckAPI.checkMultiply({
-            huayId: period?.lotteryId || 1,
-            stockType: period?.huayCode?.startsWith('g') ? 'g' : 's',
-            huayOption: item.betType,
-            poyNumber: item.number,
-            multiply: rate.multiply,
-            value: 1
-          })
-
-          // Use actual multiply from API
-          addToCart({
-            bet_type: item.betType,
-            bet_type_label: config.label,
-            number: item.number,
-            amount: item.amount,
-            payout_rate: checkResult.multiply,
-            huayName: period?.huayName,
-            isSpecialNumber: checkResult.isSpecialNumber,
-            soldAmount: checkResult.soldAmount,
-            remainingAmount: checkResult.remainingAmount,
-            maxSaleAmount: checkResult.maxSaleAmount,
-            checkResult: checkResult.result
-          })
-          addedCount++
-        } catch (error) {
-          console.error('Check multiply error:', error)
-          // Fallback to default rate if API fails
-          addToCart({
-            bet_type: item.betType,
-            bet_type_label: config.label,
-            number: item.number,
-            amount: item.amount,
-            payout_rate: rate.multiply,
-            huayName: period?.huayName
-          })
-          addedCount++
-        }
-      }
+    if (itemsToAdd.length === 0) {
+      toast.error(t('lottery:messages.allNumbersInCart'))
+      return
     }
 
-    if (addedCount > 0) {
-      toast.success(t('lottery:messages.loadedTemplate', { count: addedCount }))
-    } else {
-      toast.error(t('lottery:messages.allNumbersInCart'))
+    // Show loading toast
+    const loadingToast = toast.loading(`กำลังโหลด ${itemsToAdd.length} รายการ...`)
+
+    try {
+      // Check multiply for all items in parallel
+      const results = await Promise.all(
+        itemsToAdd.map(async (item) => {
+          const config = BET_TYPES[item.betType] || {
+            id: item.betType,
+            label: item.betType,
+            digitCount: item.number.length
+          }
+
+          const rate = rates.find(r => r.bet_type === item.betType)
+          if (!rate) return null
+
+          try {
+            const checkResult = await memberLotteryCheckAPI.checkMultiply({
+              huayId: period?.lotteryId || 1,
+              stockType: period?.huayCode?.startsWith('g') ? 'g' : 's',
+              huayOption: item.betType,
+              poyNumber: item.number,
+              multiply: rate.multiply,
+              value: 1
+            })
+
+            return {
+              bet_type: item.betType,
+              bet_type_label: config.label,
+              number: item.number,
+              amount: item.amount,
+              payout_rate: checkResult.multiply,
+              huayName: period?.huayName,
+              isSpecialNumber: checkResult.isSpecialNumber,
+              soldAmount: checkResult.soldAmount,
+              remainingAmount: checkResult.remainingAmount,
+              maxSaleAmount: checkResult.maxSaleAmount,
+              checkResult: checkResult.result
+            }
+          } catch (error) {
+            console.error('Check multiply error:', error)
+            // Fallback to default rate
+            return {
+              bet_type: item.betType,
+              bet_type_label: config.label,
+              number: item.number,
+              amount: item.amount,
+              payout_rate: rate.multiply,
+              huayName: period?.huayName
+            }
+          }
+        })
+      )
+
+      // Add all valid results to cart
+      let addedCount = 0
+      results.forEach(result => {
+        if (result) {
+          addToCart(result)
+          addedCount++
+        }
+      })
+
+      toast.dismiss(loadingToast)
+      if (addedCount > 0) {
+        toast.success(t('lottery:messages.loadedTemplate', { count: addedCount }))
+      }
+    } catch (error) {
+      toast.dismiss(loadingToast)
+      toast.error('เกิดข้อผิดพลาดในการโหลดโพย')
+      console.error('Load template error:', error)
     }
   }
 
