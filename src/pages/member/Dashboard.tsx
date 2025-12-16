@@ -55,7 +55,13 @@ const Dashboard: React.FC = () => {
       const transactionsData = transactionsRes.data?.data || transactionsRes.data
       setRecentTransactions(Array.isArray(transactionsData) ? transactionsData : [])
 
-      setActiveLotteries(lotteriesRes.data?.lotteries || lotteriesRes.data?.data || [])
+      const lotteries = lotteriesRes.data?.lotteries || lotteriesRes.data?.data || []
+      console.log('📦 Dashboard Lotteries extracted:', lotteries)
+      if (lotteries.length > 0) {
+        console.log('📦 First lottery full data:', lotteries[0])
+        console.log('📦 First lottery flagNextday:', lotteries[0].flagNextday, typeof lotteries[0].flagNextday)
+      }
+      setActiveLotteries(lotteries)
     } catch (error) {
       console.error('Load dashboard error:', error)
       toast.error('โหลดข้อมูลไม่สำเร็จ')
@@ -410,31 +416,45 @@ const Dashboard: React.FC = () => {
                 <p className="text-white/60 font-medium">ไม่มีหวยที่เปิดรับ</p>
               </div>
             ) : (
-              activeLotteries.map((lottery) => (
-                <Link
-                  key={lottery.id}
-                  to="/member/lottery"
-                  className="block p-5 bg-gradient-to-r from-purple-600/20 to-pink-600/20 hover:from-purple-600/40 hover:to-pink-600/40 border-2 border-purple-500/30 hover:border-purple-400/60 rounded-xl transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] group"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <GiSparkles className="text-yellow-400 group-hover:animate-spin" size={20} />
-                        <p className="text-white font-bold text-lg">{lottery.name}</p>
+              activeLotteries.map((lottery) => {
+                // Calculate actual close time with flag_nextday
+                let actualCloseTime = new Date(lottery.closeTime)
+                if (lottery.flagNextday) {
+                  actualCloseTime = new Date(actualCloseTime.getTime() + 24 * 60 * 60 * 1000)
+                }
+
+                // Check if lottery is still open
+                const now = new Date()
+                if (now > actualCloseTime) {
+                  return null // Don't show closed lotteries
+                }
+
+                return (
+                  <Link
+                    key={lottery.id}
+                    to="/member/lottery"
+                    className="block p-5 bg-gradient-to-r from-purple-600/20 to-pink-600/20 hover:from-purple-600/40 hover:to-pink-600/40 border-2 border-purple-500/30 hover:border-purple-400/60 rounded-xl transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(168,85,247,0.3)] group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <GiSparkles className="text-yellow-400 group-hover:animate-spin" size={20} />
+                          <p className="text-white font-bold text-lg">{lottery.name}</p>
+                        </div>
+                        <p className="text-sm text-purple-200">
+                          งวดวันที่ {formatDate(lottery.drawDate)}
+                        </p>
                       </div>
-                      <p className="text-sm text-purple-200">
-                        งวดวันที่ {formatDate(lottery.drawDate)}
-                      </p>
+                      <div className="text-right bg-black/30 rounded-xl px-4 py-2 border border-yellow-400/20">
+                        <p className="text-xs text-yellow-300 mb-1 font-bold">ปิดรับ</p>
+                        <p className="text-sm text-yellow-400 font-black">
+                          {formatDate(actualCloseTime.toISOString())}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-right bg-black/30 rounded-xl px-4 py-2 border border-yellow-400/20">
-                      <p className="text-xs text-yellow-300 mb-1 font-bold">ปิดรับ</p>
-                      <p className="text-sm text-yellow-400 font-black">
-                        {formatDate(lottery.closeTime)}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))
+                  </Link>
+                )
+              })
             )}
           </div>
         </div>
